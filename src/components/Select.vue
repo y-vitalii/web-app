@@ -79,19 +79,42 @@
         transition: color ease-in-out 500ms;
     }
 
-    .select li::before {
-        bottom: 0;
+    .select li:before {
+        /*bottom: 0;*/
+        /*line-height: 14px;*/
+        /*top:50px;*/
+        content: '';
         background: #FFA800;
         height: 4px;
+        width: 85px;
         position: absolute;
-
+        /*display: block;*/
         -webkit-transition-duration: 0.5s;
         transition-duration: 0.5s;
         -webkit-transition-timing-function: ease-out;
         transition-timing-function: ease-out;
+        margin-top: 22px;
+    }
+
+    .select li:hover:before {
+        background: #ffffff;
+        -webkit-transition: color ease-in-out 500ms;
+        -moz-transition: color ease-in-out 500ms;
+        -o-transition: color ease-in-out 500ms;
+        transition: color ease-in-out 500ms;
+
+        /*-webkit-transition-duration: 0.5s;*/
+        /*transition-duration: 0.5s;*/
+        /*-webkit-transition-timing-function: ease-out;*/
+        /*transition-timing-function: ease-out;*/
     }
 
     .selected {
         color: #ffffff !important;
     }
+
+    .selected:before {
+        background: #ffffff !important;
+    }
+
 </style>
