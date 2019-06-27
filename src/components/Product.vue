@@ -2,7 +2,7 @@
     <div id="product-content" v-on:click="getPostsData()">
         <div class="top-text">Item</div>
         <div class="img-content"></div>
-        <div class="bottom">
+        <div class="bottom" >
             <div class="bottom-text">Text</div>
         </div>
     </div>
@@ -28,7 +28,6 @@
             async getPostsData () {
                 this.loading = true;
                 this.posts = await api.getPosts();
-                debugger
                 this.loading = false;
             },
         }

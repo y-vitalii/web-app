@@ -1,8 +1,8 @@
 <template>
     <div id="select-content">
         <ul class="select">
-            <li v-bind:class="{ selected: item.isActive }"
-                v-bind:key="item.text"
+            <li :class="{ selected: item.isActive }"
+                :key="item.text"
                 v-for="item in items"
                 v-on:click="toggleActive(item)">
                 Popular {{ item.text }}
@@ -37,13 +37,7 @@
 
                 item.isActive = !item.isActive;
             }
-        },
-        // TODO: populate&
-        // populate: function () {
-        //     for (let i = 0; i < 7; i++) {
-        //         this.items.push({text: i});
-        //     }
-        // }
+        }
     }
 </script>
 
