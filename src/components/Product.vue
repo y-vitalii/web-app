@@ -1,7 +1,9 @@
 <template>
     <div id="product-content" v-on:click="getPostsData()">
         <div class="top-text">Item</div>
-        <div class="img-content"></div>
+        <div class="img-content swiper-lazy">
+<!--            <div class="swiper-lazy-preloader"></div>-->
+        </div>
         <div class="bottom" >
             <div class="bottom-text">Text</div>
         </div>
@@ -41,7 +43,7 @@
         display: inline-block;
         border-radius: 5px;
         /*height: 100%;*/
-        /*width: 150px;*/
+        width: 100px;
         margin-left: 10px;
         margin-right: 10px;
         /*overflow: hidden;*/
@@ -63,7 +65,7 @@
     }
 
     .img-content {
-        width: 100px;
+        max-width: 100%;
         height: 170px;
         background-image: url(../assets/products/item1.png);
         background-position: 50% 0px;

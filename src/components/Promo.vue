@@ -16,7 +16,7 @@
 
 <style scoped>
     #promo-content {
-        display: inline-block;
+        /*display: inline-block;*/
         width: 100%;
         height: 500px;
         background-color: #BE6A00;

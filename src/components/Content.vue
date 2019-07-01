@@ -3,7 +3,7 @@
         <div class="head-text">PRODUCTS</div>
         <Select />
         <div class="products-content">
-            <swiper :options="swiperOption" :class="{disabled : 'drinks' !== currentSection}">
+            <swiper :options="swiperOption" ref="mySwiper" :class="{disabled : 'drinks' !== currentSection}">
                 <swiper-slide :key="drink.name"
                               v-for="drink in drinks">
                     <Product />
@@ -13,8 +13,8 @@
                 <div class="swiper-button-next" slot="button-next"></div>
             </swiper>
             <swiper :options="swiperOption" :class="{disabled : 'foods' !== currentSection}">
-                <swiper-slide :key="drink.name"
-                              v-for="drink in foods">
+                <swiper-slide :key="food.name"
+                              v-for="food in foods">
                     <Product />
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -45,10 +45,17 @@
         data: function () {
             return {
                 swiperOption: {
-                    slidesPerView: 5,
+                    slidesPerView: 3,
                     spaceBetween: 5,
+                    preloadImages: true,
+                    lazy: true,
+                    hashNavigation: true,
                     pagination: {
                         el: '.swiper-pagination'
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev'
                     }
                 },
                 activeSection: ''
@@ -79,7 +86,10 @@
         computed: mapState({
             drinks: state => state.products.drinks,
             foods: state => state.products.foods,
-            currentSection: state => state.currentSection
+            currentSection: state => state.currentSection,
+            swiper() {
+                return this.$refs.mySwiper.swiper
+            }
         })
     }
 </script>

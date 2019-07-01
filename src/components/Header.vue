@@ -1,7 +1,7 @@
 <template>
     <div id="header-content">
         <div class="header">
-            <div id="header-text">Site Name</div>
+            <div class="header-text">Site Name</div>
             <div class="barket"></div>
         </div>
         <Promo />
@@ -22,7 +22,7 @@
 
     }
 
-    #header-text {
+    .header-text {
         color: #ce7b00;
         top: 50%;
         left:25px;
@@ -50,18 +50,17 @@
     }
 
     .barket {
-        background-image: url(../assets/basket.png);
+        background-image: url(../assets/16757-200.png);
+        filter: invert(100%);
         position: absolute;
-        cursor: pointer;
-        background: white;
-        margin: 0;
-        height: 200px;
         width: 200px;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
+        height: 200px;
+        top: -83%;
+        right: -60px;
+        cursor: pointer;
 
-        transform: scale(0.5, 0.5);
-        -ms-transform: scale(0.5, 0.5);
-        -webkit-transform: scale(0.5, 0.5);
+        transform: scale(0.2, 0.2) translateY(-50%);
+        -ms-transform: scale(0.2, 0.2) translateY(-50%);
+        -webkit-transform: scale(0.2, 0.2) translateY(-50%);
     }
 </style>
