@@ -3,19 +3,18 @@
         <div class="head-text">PRODUCTS</div>
         <Select />
         <div class="products-content">
-            <swiper :options="swiperOption">
-                <swiper-slide :key="food.name"
-                              v-for="food in foods">
+            <swiper :options="swiperOption" :class="{disabled : 'drinks' !== currentSection}">
+                <swiper-slide :key="drink.name"
+                              v-for="drink in drinks">
                     <Product />
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
                 <div class="swiper-button-next" slot="button-next"></div>
             </swiper>
-
-            <swiper :options="swiperOption" class="disabled">
+            <swiper :options="swiperOption" :class="{disabled : 'foods' !== currentSection}">
                 <swiper-slide :key="drink.name"
-                              v-for="drink in drinks">
+                              v-for="drink in foods">
                     <Product />
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -30,8 +29,10 @@
     import Select from './Select'
     import Product from './Product'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
+    import {mapState, mapActions} from 'vuex'
 
     import 'swiper/dist/css/swiper.css'
+
 
     export default {
         name: "Content",
@@ -50,47 +51,36 @@
                         el: '.swiper-pagination'
                     }
                 },
-                items: [],
-                foods: [
-                    {name: '1', cost: '2'},
-                    {name: '2', cost: '2'},
-                    {name: '3', cost: '2'},
-                    {name: '4', cost: '2'},
-                    {name: '5', cost: '2'},
-                    {name: '6', cost: '2'},
-                    {name: '7', cost: '2'},
-                    {name: '8', cost: '2'},
-                    {name: '9', cost: '2'},
-                    {name: '10', cost: '2'}
-                ],
-                drinks: []
+                activeSection: ''
             }
+        },
+        actions: {
+            ...mapActions({
+                getDrinks: 'products/getDrinks'
+            })
         },
         methods: {
             changeTopic: function () {
 
             },
-            slide: function (direction) {
-                switch (direction) {
-                    case 'left':
-                        break;
-                    case 'right':
-                        // this.foods[0].destroy();
+            slide: function () {
 
-                        // debugger
-                        this.foods.push({name: '1', cost: '2'});
-                        this.foods.splice(0, 1);
-                        break;
-                    default:
-                        this.foods.splice(0, 1);
-                        this.foods.push({name: '1', cost: '2'});
-                        break;
-                }
             }
         },
-        mounted() {
+        created: function () {
+            this.$store.dispatch('products/getDrinks').then(() => {
 
-        }
+            });
+
+            this.$store.dispatch('products/getFoods').then(() => {
+
+            });
+        },
+        computed: mapState({
+            drinks: state => state.products.drinks,
+            foods: state => state.products.foods,
+            currentSection: state => state.currentSection
+        })
     }
 </script>
 

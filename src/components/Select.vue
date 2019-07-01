@@ -17,8 +17,8 @@
         data: function () {
             return {
                 items: [
-                    {text: 1, isActive: true},
-                    {text: 2, isActive: false},
+                    {text: 1, isActive: true, key: 'drinks'},
+                    {text: 2, isActive: false, key: 'foods'},
                     {text: 3, isActive: false},
                     {text: 4, isActive: false},
                     {text: 5, isActive: false},
@@ -36,6 +36,8 @@
                 this.currentSelected = item;
 
                 item.isActive = !item.isActive;
+
+                this.$store.commit('setActive', this.currentSelected.key);
             }
         }
     }
