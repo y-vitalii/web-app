@@ -4,7 +4,7 @@
             <div class="info">
                 <h4>COMPANY</h4>
                 <p>
-                    <a href="/">About</a>
+                    <a href="/content">About</a>
                 </p>
             </div>
             <div class="info">

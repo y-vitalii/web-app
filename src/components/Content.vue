@@ -2,24 +2,15 @@
     <div id="main-content">
         <div class="select-block">
             <div class="head-text">PRODUCTS</div>
-            <Select />
+            <Select @click="handlerSelectClick"/>
         </div>
         <div class="products-content">
-            <swiper :options="swiperOption" ref="mySwiper" :class="{disabled : 'drinks' !== currentSection}">
-                <swiper-slide :key="drink.name"
-                              v-for="drink in drinks">
+            <swiper :options="swiperOption"
+                    ref="mySwiper">
+                <swiper-slide v-for="item in items"
+                              :key="item.name">
                     <Product />
                     <button class="button" @click="addProductToCart(drink)">Buy</button>
-                </swiper-slide>
-                <div class="swiper-pagination" slot="pagination"></div>
-                <div class="swiper-button-prev" slot="button-prev"></div>
-                <div class="swiper-button-next" slot="button-next"></div>
-            </swiper>
-            <swiper :options="swiperOption" :class="{disabled : 'foods' !== currentSection}">
-                <swiper-slide :key="food.name"
-                              v-for="food in foods">
-                    <Product />
-                    <button class="button" @click="addProductToCart(food)">Buy</button>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -61,15 +52,22 @@
                         prevEl: '.swiper-button-prev'
                     }
                 },
-                activeSection: ''
+                currentSelect: 'foods',
+                activeSection: '',
+                items: []
             }
         },
-        actions: {
-            ...mapActions({
-                getDrinks: 'products/getDrinks'
-            })
-        },
         methods: {
+            handlerSelectClick(item) {
+                this.currentSelect = item.key;
+                if (this.currentSelect === 'drinks') {
+                    this.getDrinks();
+                } else {
+                    this.getFoods();
+                }
+                // this.$store.commit('setActive', item.key);
+
+            },
             changeTopic: function () {
 
             },
@@ -77,17 +75,34 @@
 
             },
             ...mapActions({
-                addProductToCart: 'cart/addProductToCart'
-            })
+                addProductToCart: 'cart/addProductToCart',
+                // getDrinks: 'products/getDrinks'
+            }),
+            getDrinks() {
+                if (this.drinks.length) {
+                    this.items = this.drinks;
+                } else {
+                    this.$store.dispatch('products/getDrinks').then((data) => {
+                        this.items = data;
+                    });
+                }
+            },
+            getFoods() {
+                if (this.foods.length) {
+                    this.items = this.foods;
+                } else {
+                    this.$store.dispatch('products/getFoods').then((data) => {
+                        this.items = data;
+                    });
+                }
+            }
         },
         created: function () {
-            this.$store.dispatch('products/getDrinks').then(() => {
-
-            });
-
-            this.$store.dispatch('products/getFoods').then(() => {
-
-            });
+            if (this.currentSection === 'foods') {
+                this.getFoods();
+            } else {
+                this.getDrinks();
+            }
         },
         computed: mapState({
             drinks: state => state.products.drinks,

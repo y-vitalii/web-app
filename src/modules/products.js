@@ -11,10 +11,12 @@ const getters = {
 
 const actions = {
     async getDrinks({commit}) {
-        commit('setDrinks', await shop.getDrinks());
+        // commit('setDrinks', await shop.getDrinks());
+        return await shop.getDrinks();
     },
     async getFoods({commit}) {
-        commit('setFoods', await shop.getFoods());
+        // commit('setFoods', await shop.getFoods());
+        return await shop.getFoods();
     }
 };
 

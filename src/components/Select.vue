@@ -37,7 +37,7 @@
 
                 item.isActive = !item.isActive;
 
-                this.$store.commit('setActive', this.currentSelected.key);
+                this.$emit('click', item);
             }
         }
     }

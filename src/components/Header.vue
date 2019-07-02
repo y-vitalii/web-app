@@ -2,6 +2,8 @@
     <div id="header-content">
         <div class="header">
             <div class="header-text">Site Name</div>
+                <router-link to="/header">Перейти к Header</router-link>
+                <router-link to="/content">Перейти к Content</router-link>
             <div class="barket">
                 <span v-if="!isCartEmpty" class="dot"></span>
             </div>
@@ -28,6 +30,10 @@
 <style scoped>
     #header-content {
 
+    }
+
+    a {
+        color: #f5f5f5;
     }
 
     .header-text {
