@@ -28,7 +28,6 @@
     }
     .promo-text {
         color: white;
-        font-family: cursive;
         font-size: 30px;
     }
     .button {

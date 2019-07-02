@@ -1,10 +1,23 @@
-const state = {};
+const state = {
+    items: []
+};
 
 const getters = {};
 
-const actions = {};
+const actions = {
+    addProductToCart: function ({commit}, product) {
+        commit('pushProductToCart', {id: product.name})
+    }
+};
 
-const mutations = {};
+const mutations = {
+    pushProductToCart(state, {id}) {
+        state.items.push({
+            id,
+            quantity: 1
+        })
+    }
+};
 
 export default {
     namespaced: true,

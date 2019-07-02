@@ -1,12 +1,15 @@
 <template>
     <div id="main-content">
-        <div class="head-text">PRODUCTS</div>
-        <Select />
+        <div class="select-block">
+            <div class="head-text">PRODUCTS</div>
+            <Select />
+        </div>
         <div class="products-content">
             <swiper :options="swiperOption" ref="mySwiper" :class="{disabled : 'drinks' !== currentSection}">
                 <swiper-slide :key="drink.name"
                               v-for="drink in drinks">
                     <Product />
+                    <button class="button" @click="addProductToCart(drink)">Buy</button>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -16,6 +19,7 @@
                 <swiper-slide :key="food.name"
                               v-for="food in foods">
                     <Product />
+                    <button class="button" @click="addProductToCart(food)">Buy</button>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -33,7 +37,6 @@
 
     import 'swiper/dist/css/swiper.css'
 
-
     export default {
         name: "Content",
         components: {
@@ -47,9 +50,9 @@
                 swiperOption: {
                     slidesPerView: 3,
                     spaceBetween: 5,
-                    preloadImages: true,
-                    lazy: true,
-                    hashNavigation: true,
+                    // preloadImages: true,
+                    // lazy: true,
+                    // hashNavigation: true,
                     pagination: {
                         el: '.swiper-pagination'
                     },
@@ -72,7 +75,10 @@
             },
             slide: function () {
 
-            }
+            },
+            ...mapActions({
+                addProductToCart: 'cart/addProductToCart'
+            })
         },
         created: function () {
             this.$store.dispatch('products/getDrinks').then(() => {
@@ -97,10 +103,10 @@
 <style scoped>
     #main-content {
         background-color: #404040;
+        padding-bottom: 100px;
     }
 
     .head-text {
-        font-family: cursive;
         font-size: 30px;
         font-weight: bold;
         padding-top: 50px;
@@ -114,6 +120,15 @@
         width: 85%;
         overflow: hidden;
         display: inline-block;
+    }
+
+    .select-block {
+        background-color: #323232;
+        position: sticky;
+        top: -100px;
+        z-index: 199;
+        border-top: 1px solid white;
+        border-bottom: 1px solid white;
     }
 
     .disabled {
@@ -138,5 +153,22 @@
         -webkit-box-align: center;
         -ms-flex-align: center;
         align-items: center;
+    }
+
+    .button {
+        background-color: #4BA073;
+        text-align: center;
+        display: block;
+        position: absolute;
+        bottom: 49px;
+        max-width: 100%;
+        width: 100px;
+
+        /*border: none;*/
+        /*padding: 7px 37px;*/
+        cursor: pointer;
+        border-radius: 5px;
+        /*border-bottom: 5px;*/
+        /*margin: 6px 0px;*/
     }
 </style>

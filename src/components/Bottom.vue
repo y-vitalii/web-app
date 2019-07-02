@@ -1,6 +1,26 @@
 <template>
     <div id="bottom-content">
-
+        <div class="bottom-top">
+            <div class="info">
+                <h4>COMPANY</h4>
+                <p>
+                    <a href="/">About</a>
+                </p>
+            </div>
+            <div class="info">
+                <h4>ABOUT</h4>
+                <p>
+                    <a href="/">Contact</a>
+                </p>
+                <p>
+                    <a href="/">FAQ</a>
+                </p>
+            </div>
+            <p class="copyright">© Klink Technologies, Inc.</p>
+        </div>
+        <div class="bottom-down">
+            <div class="bottom-text">Miami, FLWashington, DCDallas, TX</div>
+        </div>
     </div>
 </template>
 
@@ -11,10 +31,66 @@
 </script>
 
 <style scoped>
-#bottom-content {
-    background-color: #000000;
-    width: 100%;
-    height: 100px;
-    /*border: 1px solid white;*/
-}
+    #bottom-content {
+
+    }
+
+    .bottom-top {
+        position: relative;
+        background-color: #202020;
+        width: 100%;
+        height: 300px;
+    }
+
+    .bottom-down {
+        background-color: #000000;
+        text-align: center;
+        width: 100%;
+        height: 70px;
+    }
+
+    .bottom-text {
+        color: #898989;
+        position: absolute;
+        padding-top: 25px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+    }
+
+    .info {
+        padding-top: 50px;
+        width: 50%;
+        display: inline-block;
+    }
+
+    .copyright {
+        position: absolute;
+        color: #767676;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    a {
+        padding-top: 7px;
+        text-decoration: none;
+        color: #A5A5A5;
+        -webkit-transition-duration: 0.5s;
+        transition-duration: 0.5s;
+    }
+
+    p {
+        margin-top: 10px;
+    }
+
+    h4 {
+        color: #f1f1f1;
+        font-weight: lighter;
+        font-size: 21px;
+    }
 </style>

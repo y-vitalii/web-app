@@ -47,20 +47,21 @@
     #select-content {
         padding-top: 70px;
         text-align: center;
+        /*position: sticky;*/
+        /*top: 0;*/
     }
 
     .select {
         margin: 0 auto;
         padding: 0;
         padding-bottom: 10px;
-        border-bottom: 1px #A5A5A5 solid;
+        /*border-bottom: 1px #a5a5a5 solid;*/
         width: 80%;
     }
 
     .select li {
         cursor: pointer;
         color: #a7a7a7;
-        font-family: cursive;
         margin-left: 10px;
         margin-right: 10px;
         text-transform: uppercase;

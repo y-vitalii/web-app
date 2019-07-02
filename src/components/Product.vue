@@ -2,37 +2,17 @@
     <div id="product-content" v-on:click="getPostsData()">
         <div class="top-text">Item</div>
         <div class="img-content swiper-lazy">
-<!--            <div class="swiper-lazy-preloader"></div>-->
+            <!--            <div class="swiper-lazy-preloader"></div>-->
         </div>
-        <div class="bottom" >
+        <div class="bottom">
             <div class="bottom-text">Text</div>
         </div>
     </div>
 </template>
 
 <script>
-    import api from '../api/shop';
-
     export default {
-        name: "Product",
-        data: function () {
-            return {
-                loading: false,
-                posts: null
-            }
-        },
-        mounted: function () {
-            return {
-
-            }
-        },
-        methods: {
-            async getPostsData () {
-                this.loading = true;
-                this.posts = await api.getPosts();
-                this.loading = false;
-            },
-        }
+        name: "Product"
     }
 </script>
 
@@ -42,11 +22,9 @@
     #product-content {
         display: inline-block;
         border-radius: 5px;
-        /*height: 100%;*/
         width: 100px;
         margin-left: 10px;
         margin-right: 10px;
-        /*overflow: hidden;*/
         background-color: white;
         cursor: pointer;
     }
@@ -59,7 +37,6 @@
     }
 
     .top-text {
-        /*font-family: Arial;*/
         color: black;
         font-weight: bold;
     }
