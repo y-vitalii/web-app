@@ -2,12 +2,10 @@
     <div id="header-content">
         <div class="header">
             <div class="header-text">Site Name</div>
-                <router-link to="/header">Перейти к Header</router-link>
-                <router-link to="/content">Перейти к Content</router-link>
-            <div class="barket">
-                <span v-if="!isCartEmpty" class="dot"></span>
-            </div>
-            <div v-if="!isCartEmpty" class="cart-count">{{itemCount}}</div>
+            <router-link class="barket" to="/cart" tag="div">
+                <span v-if="totalQuantity" class="dot"></span>
+            </router-link>
+            <div v-if="totalQuantity" class="cart-count">{{totalQuantity}}</div>
         </div>
         <Promo />
     </div>
@@ -15,14 +13,16 @@
 
 <script>
     import Promo from './Promo'
-    import {mapState} from 'vuex'
+    import {mapState, mapGetters} from 'vuex'
 
     export default {
         name: "Header",
+        props: ['quantity'],
         components: {Promo},
         computed: mapState({
-            isCartEmpty: state => state.cart.items.length === 0,
-            itemCount: state => state.cart.items.length
+            ...mapGetters('cart', {
+                totalQuantity: 'getTotalQuantity'
+            })
         })
     }
 </script>
@@ -91,7 +91,7 @@
     .cart-count {
         position: absolute;
         font-weight: bold;
-        top: 9px;
+        top: 10px;
         right: 21px;
         font-size: 15px;
         color: white;

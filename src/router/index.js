@@ -1,5 +1,4 @@
-import Header from '../components/Header';
-import Content from '../components/Content';
+import Cart from '../components/Cart';
 import BaseLayout from '../components/layouts/Base-layout';
 
 const router = {
@@ -8,19 +7,12 @@ const router = {
     routes: [
         {
             path: '/',
-            component: BaseLayout,
-            children: [
-                {
-                    path: 'content',
-                    component: Content
-                },
-                {
-                    path: 'header',
-                    component: Header,
-                }
-            ]
+            component: BaseLayout
+        },
+        {
+            path: '/cart',
+            component: Cart
         }
-        // { path: '/foo', component: Header }
     ]
 };
 

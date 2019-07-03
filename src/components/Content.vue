@@ -8,9 +8,9 @@
             <swiper :options="swiperOption"
                     ref="mySwiper">
                 <swiper-slide v-for="item in items"
-                              :key="item.name">
+                              :key="item.key">
                     <Product />
-                    <button class="button" @click="addProductToCart(drink)">Buy</button>
+                    <button class="button" @click="addProductToCart(item)">Buy</button>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -41,9 +41,6 @@
                 swiperOption: {
                     slidesPerView: 3,
                     spaceBetween: 5,
-                    // preloadImages: true,
-                    // lazy: true,
-                    // hashNavigation: true,
                     pagination: {
                         el: '.swiper-pagination'
                     },
