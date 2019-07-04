@@ -21,20 +21,15 @@ const getters = {
     },
     getTotalPrice: (state, getters) => {
         return state.items.reduce((total, product) => {
+            debugger
             return total + product.cost * product.quantity
         }, 0);
     }
 };
 
 const actions = {
-    addProductToCart: function ({commit}, product, index) {
-        // debugger
-        const payload = {
-            product,
-            index
-        };
-
-        commit('pushProductToCart', payload)
+    addProductToCart: function ({commit}, item) {
+        commit('pushProductToCart', item)
     },
     sendCardProducts: function () {
 
@@ -42,15 +37,24 @@ const actions = {
 };
 
 const mutations = {
-    pushProductToCart(state, payload) {
-        if (!payload.product.isAdded) {
-            payload.product.isAdded = true;
-            payload.product.quantity = 1;
+    pushProductToCart(state, item) {
+        // if (!item.isAdded) {
+        //     item.isAdded = true;
+        //     item.quantity = 1;
+        //
+        //     state.items.push(item)
+        // } else {
+        // debugger
+        const index = state.items.findIndex(product => product.key === item.key);
 
-            state.items.push(payload.product)
-        } else {
-            state.items.splice(payload.index, 1)
-        }
+        if (index === -1) {
+            item.quantity = 1;
+            state.items.push(item);
+        } else state.items.splice(index, 1);
+        // debugger
+        // item.isAdded = false;
+        // state.items.splice(index, 1)
+        // }
     },
     changeQuantity(state, payload) {
         const item = state.items[payload.index];

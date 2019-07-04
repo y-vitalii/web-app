@@ -24,7 +24,7 @@
             </ul>
             <div class="confirm-content">
                 <button class="inline button-accept col2">Заказать</button>
-                <h3 class="inline col2">Total price: {{total}} Грн</h3>
+                <h3 class="inline col2">Total price: {{total}} {{$t('uah')}}</h3>
             </div>
         </div>
         <Bottom />

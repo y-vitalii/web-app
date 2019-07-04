@@ -2,16 +2,21 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import store from './store'
-import router from './router'
+import r from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import VueI18n from 'vue-i18n'
+import i from './locale'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
+Vue.use(VueI18n);
 
-const r = new VueRouter(router);
+const router = new VueRouter(r);
+const i18n = new VueI18n(i);
 
 new Vue({
-  router: r,
+  router,
+  i18n,
   store,
   render: h => h(App),
   VueAwesomeSwiper

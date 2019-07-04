@@ -2,7 +2,9 @@
     <div id="main-content">
         <div class="select-block">
             <div class="head-text">PRODUCTS</div>
-            <Select @click="handlerSelectClick" />
+            <label>
+                <Select @click="handlerSelectClick" />
+            </label>
         </div>
         <div class="products-content">
             <swiper :options="swiperOption"
@@ -11,7 +13,7 @@
                               :key="item.key">
                     <Product />
                     <button v-bind:class="[item.isAdded ? disabled : '', button]"
-                            @click="addProductToCart(item, index)">Buy
+                            @click="addProductToCart1(item, index)">Buy
                     </button>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -74,6 +76,12 @@
             },
             slide: function () {
 
+            },
+            addProductToCart1: function (item, index) {
+                item.isAdded = !item.isAdded;
+
+                this.items.splice(index, 1, item);
+                this.addProductToCart(item);
             },
             ...mapActions({
                 addProductToCart: 'cart/addProductToCart',
