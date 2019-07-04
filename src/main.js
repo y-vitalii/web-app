@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
-// import Header from './components/Header'
 import store from './store'
 import router from './router'
 import VueAwesomeSwiper from 'vue-awesome-swiper'

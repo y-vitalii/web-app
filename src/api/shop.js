@@ -35,13 +35,13 @@ export default {
     },
     getDrinks() {
         const testData = [
-            {key: 1, name: '1', cost: '1', imgSrc: ''},
-            {key: 2, name: '1', cost: '1', imgSrc: ''},
-            {key: 3, name: '1', cost: '1', imgSrc: ''},
-            {key: 4, name: '1', cost: '1', imgSrc: ''},
-            {key: 5, name: '1', cost: '1', imgSrc: ''},
-            {key: 6, name: '1', cost: '1', imgSrc: ''},
-            {key: 7, name: '1', cost: '1', imgSrc: ''}
+            {key: 1, name: 'Product product', cost: 100, imgSrc: ''},
+            {key: 2, name: 'Product product', cost: 200, imgSrc: ''},
+            {key: 3, name: 'Product product', cost: 300, imgSrc: ''},
+            {key: 4, name: 'Product product', cost: 400, imgSrc: ''},
+            {key: 5, name: 'Product product', cost: 500, imgSrc: ''},
+            {key: 6, name: 'Product product', cost: 600, imgSrc: ''},
+            {key: 7, name: 'Product product', cost: 700, imgSrc: ''}
         ];
 
         return new Promise(function (resolve) {
@@ -54,10 +54,10 @@ export default {
     },
     getFoods() {
         const testData = [
-            {key: 1, name: '1', cost: '1', imgSrc: ''},
-            {key: 2, name: '1', cost: '1', imgSrc: ''},
-            {key: 3, name: '1', cost: '1', imgSrc: ''},
-            {key: 4, name: '1', cost: '1', imgSrc: ''}
+            {key: 1, name: '1', cost: 100, imgSrc: ''},
+            {key: 2, name: '1', cost: 200, imgSrc: ''},
+            {key: 3, name: '1', cost: 300, imgSrc: ''},
+            {key: 4, name: '1', cost: 400, imgSrc: ''}
         ];
 
         return new Promise(function (resolve) {

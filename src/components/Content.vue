@@ -2,15 +2,17 @@
     <div id="main-content">
         <div class="select-block">
             <div class="head-text">PRODUCTS</div>
-            <Select @click="handlerSelectClick"/>
+            <Select @click="handlerSelectClick" />
         </div>
         <div class="products-content">
             <swiper :options="swiperOption"
                     ref="mySwiper">
-                <swiper-slide v-for="item in items"
+                <swiper-slide v-for="(item, index) in items"
                               :key="item.key">
                     <Product />
-                    <button class="button" @click="addProductToCart(item)">Buy</button>
+                    <button v-bind:class="[item.isAdded ? disabled : '', button]"
+                            @click="addProductToCart(item, index)">Buy
+                    </button>
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
                 <div class="swiper-button-prev" slot="button-prev"></div>
@@ -51,7 +53,9 @@
                 },
                 currentSelect: 'foods',
                 activeSection: '',
-                items: []
+                items: [],
+                button: 'button',
+                disabled: 'disabled'
             }
         },
         methods: {
@@ -137,7 +141,7 @@
     .select-block {
         background-color: #323232;
         position: sticky;
-        top: -100px;
+        top: -50px;
         z-index: 199;
         border-top: 1px solid white;
         border-bottom: 1px solid white;
@@ -182,5 +186,9 @@
         border-radius: 5px;
         /*border-bottom: 5px;*/
         /*margin: 6px 0px;*/
+    }
+
+    .disabled {
+        background-color: #898989;
     }
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div id="header-content">
         <div class="header">
-            <div class="header-text">Site Name</div>
+            <router-link to="/" class="header-text" tag="div">Site Name</router-link>
             <router-link class="barket" to="/cart" tag="div">
                 <span v-if="totalQuantity" class="dot"></span>
             </router-link>
@@ -17,7 +17,6 @@
 
     export default {
         name: "Header",
-        props: ['quantity'],
         components: {Promo},
         computed: mapState({
             ...mapGetters('cart', {

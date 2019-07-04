@@ -27,8 +27,14 @@ const getters = {
 };
 
 const actions = {
-    addProductToCart: function ({commit}, product) {
-        commit('pushProductToCart', product)
+    addProductToCart: function ({commit}, product, index) {
+        // debugger
+        const payload = {
+            product,
+            index
+        };
+
+        commit('pushProductToCart', payload)
     },
     sendCardProducts: function () {
 
@@ -36,9 +42,15 @@ const actions = {
 };
 
 const mutations = {
-    pushProductToCart(state, product) {
-        product.quantity = 1;
-        state.items.push(product)
+    pushProductToCart(state, payload) {
+        if (!payload.product.isAdded) {
+            payload.product.isAdded = true;
+            payload.product.quantity = 1;
+
+            state.items.push(payload.product)
+        } else {
+            state.items.splice(payload.index, 1)
+        }
     },
     changeQuantity(state, payload) {
         const item = state.items[payload.index];
@@ -47,6 +59,9 @@ const mutations = {
         else if (!payload.isUp && item.quantity !== 0) item.quantity -= 1;
 
         state.items.splice(payload.index, 1, item)
+    },
+    remove(state, index) {
+        state.items.splice(index, 1);
     }
 };
 
