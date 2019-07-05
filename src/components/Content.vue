@@ -28,7 +28,7 @@
     import Select from './Select'
     import Product from './Product'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
-    import {mapState, mapActions} from 'vuex'
+    import {mapState, mapActions, mapMutations} from 'vuex'
 
     import 'swiper/dist/css/swiper.css'
 
@@ -81,11 +81,16 @@
                 item.isAdded = !item.isAdded;
 
                 this.items.splice(index, 1, item);
+                // debugger
+                // this.setDrink({index, item});
                 this.addProductToCart(item);
             },
             ...mapActions({
                 addProductToCart: 'cart/addProductToCart',
                 // getDrinks: 'products/getDrinks'
+            }),
+            ...mapMutations({
+                setDrink: 'products/setDrink'
             }),
             getDrinks() {
                 if (this.drinks.length) {
@@ -141,9 +146,10 @@
         padding-top: 50px;
         text-align: center;
         margin: 0 auto;
-        width: 85%;
         overflow: hidden;
         display: inline-block;
+        width: 100%;
+        max-width: 1200px;
     }
 
     .select-block {

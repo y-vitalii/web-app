@@ -21,7 +21,6 @@ const getters = {
     },
     getTotalPrice: (state, getters) => {
         return state.items.reduce((total, product) => {
-            debugger
             return total + product.cost * product.quantity
         }, 0);
     }
@@ -38,23 +37,14 @@ const actions = {
 
 const mutations = {
     pushProductToCart(state, item) {
-        // if (!item.isAdded) {
-        //     item.isAdded = true;
-        //     item.quantity = 1;
-        //
-        //     state.items.push(item)
-        // } else {
-        // debugger
         const index = state.items.findIndex(product => product.key === item.key);
 
         if (index === -1) {
             item.quantity = 1;
             state.items.push(item);
-        } else state.items.splice(index, 1);
-        // debugger
-        // item.isAdded = false;
-        // state.items.splice(index, 1)
-        // }
+        } else {
+            state.items.splice(index, 1);
+        }
     },
     changeQuantity(state, payload) {
         const item = state.items[payload.index];

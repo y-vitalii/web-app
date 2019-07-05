@@ -3,24 +3,26 @@
         <Header />
         <div class="cart-content">
             <ul>
-                <li class="cart-value" v-for="(item, index) in items" :key="item.key">
-                    <div class="top-content">
-                        <div class="inline image left">
-                            <img src="../assets/products/item1.png" width="70" height="70">
+                <transition-group appear name="slide-fade">
+                    <li class="cart-value" v-for="(item, index) in items" :key="item.key">
+                        <div class="top-content">
+                            <div class="inline image left">
+                                <img src="../assets/products/item1.png" width="70" height="70">
+                            </div>
+                            <div class="inline info center">{{item.name}}</div>
+                            <button class="inline button right" @click="removeItem({index})">x</button>
                         </div>
-                        <div class="inline info center">{{item.name}}</div>
-                        <button class="inline button right" @click="removeItem({index})">x</button>
-                    </div>
-                    <div class="bottom-content">
-                        <div class="inline left text-style">{{item.cost}} Грн</div>
-                        <div class="inline center">
-                            <button class="button" @click="changeQuantity({index})">-</button>
-                            <div class="inline text-style">{{item.quantity}}</div>
-                            <button class="button" @click="changeQuantity({index, isUp:'up'})">+</button>
+                        <div class="bottom-content">
+                            <div class="inline left text-style">{{item.cost}} Грн</div>
+                            <div class="inline center">
+                                <button class="button" @click="changeQuantity({index})">-</button>
+                                <div class="inline text-style">{{item.quantity}}</div>
+                                <button class="button" @click="changeQuantity({index, isUp:'up'})">+</button>
+                            </div>
+                            <div class="inline right text-style total">{{item.cost * item.quantity}} Грн</div>
                         </div>
-                        <div class="inline right text-style total">{{item.cost * item.quantity}} Грн</div>
-                    </div>
-                </li>
+                    </li>
+                </transition-group>
             </ul>
             <div class="confirm-content">
                 <button class="inline button-accept col2">Заказать</button>
@@ -179,5 +181,17 @@
     h3 {
         color: #dcdcdc;
         font-weight: lighter;
+    }
+
+    .slide-fade-enter-active {
+        transition: all .3s ease;
+    }
+    .slide-fade-leave-active {
+        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+    }
+    .slide-fade-enter, .slide-fade-leave-to
+        /* .slide-fade-leave-active до версии 2.1.8 */ {
+        transform: translateX(10px);
+        opacity: 0;
     }
 </style>
