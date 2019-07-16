@@ -3,7 +3,11 @@ const i18n = {
    fallbackLocale: 'ua',
    messages: {
       ua: {
-         uah: 'грн'
+         uah: 'грн',
+         text1: 'BEER, WINE & SPIRITS',
+         text2: 'DELIVERED WITHIN AN HOUR',
+         browse_text1: 'BROWSE TO FIND',
+         browse_text2: 'YOUR FAVORITES.'
       }
    }
 };

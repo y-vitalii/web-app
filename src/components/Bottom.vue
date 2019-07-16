@@ -1,23 +1,23 @@
 <template>
     <div id="bottom-content">
-        <div class="bottom-top">
-            <div class="info">
-                <h4>COMPANY</h4>
-                <p>
-                    <a href="/content">About</a>
-                </p>
-            </div>
-            <div class="info">
-                <h4>ABOUT</h4>
-                <p>
-                    <a href="/">Contact</a>
-                </p>
-                <p>
-                    <a href="/">FAQ</a>
-                </p>
-            </div>
-            <p class="copyright">© Klink Technologies, Inc.</p>
-        </div>
+<!--        <div class="bottom-top">-->
+<!--            <div class="info">-->
+<!--                <h4>COMPANY</h4>-->
+<!--                <p>-->
+<!--                    <a href="/content">About</a>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <div class="info">-->
+<!--                <h4>ABOUT</h4>-->
+<!--                <p>-->
+<!--                    <a href="/">Contact</a>-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    <a href="/">FAQ</a>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--            <p class="copyright">© Klink Technologies, Inc.</p>-->
+<!--        </div>-->
         <div class="bottom-down">
             <div class="bottom-text">Miami, FLWashington, DCDallas, TX</div>
         </div>

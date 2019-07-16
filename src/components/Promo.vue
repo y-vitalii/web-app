@@ -1,9 +1,9 @@
 <template>
     <div id="promo-content">
+        <img class="promo-img" src="../assets/parachutes.png" />
         <div class="promo">
-            <div class="promo-text">TEXT, TEXT & TEXT</div>
-            <div class="promo-text">TEXT TEXT TEXT TEXT TEXT TEXT TEXT</div>
-            <button class="button">BUY BUY BUY</button>
+            <div class="promo-text">{{$t('text1')}}</div>
+            <div class="promo-text">{{$t('text2')}}</div>
         </div>
     </div>
 </template>
@@ -16,26 +16,47 @@
 
 <style scoped>
     #promo-content {
-        /*display: inline-block;*/
         width: 100%;
-        height: 500px;
+        height: 450px;
         background-color: #BE6A00;
         background-image: url(../assets/header-bg.png);
         background-position: 50% 0px;
     }
+
     .promo {
         padding-top: 250px;
     }
+
+    .promo :first-child {
+        font-weight: bold;
+        font-size: 31px;
+    }
+
+    .promo :last-child {
+        font-size: 24px;
+        font-weight: 300;
+    }
+
     .promo-text {
         color: white;
         font-size: 30px;
     }
-    .button {
-        background-color: #4BA073;
-        border: none;
-        padding: 15px 30px;
+
+    .promo-img {
+        width: 209px;
+        height: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 95px;
         cursor: pointer;
-        border-radius: 5px;
-        margin: 30px 0px;
+        margin: auto;
+        max-width: 105px;
+    }
+
+    .promo-img:hover {
+        transition-duration: 0.3s;
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
     }
 </style>

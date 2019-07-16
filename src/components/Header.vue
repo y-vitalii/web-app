@@ -1,7 +1,7 @@
 <template>
     <div id="header-content">
         <div class="header">
-            <router-link to="/" class="header-text" tag="div">Site Name</router-link>
+            <router-link to="/" class="header-text" tag="div">klink</router-link>
             <router-link class="barket" to="/cart" tag="div">
                 <span v-if="totalQuantity" class="dot"></span>
             </router-link>
@@ -36,26 +36,21 @@
     }
 
     .header-text {
-        color: #ce7b00;
+        color: #ffffff;
         top: 50%;
         left: 25px;
-        text-shadow: -1px 0 #f99700, 0 1px #f99700, 1px 0 #f99700, 0 -1px #f99700;
+        margin: 0 auto;
+        padding-top: 15px;
         cursor: pointer;
-        margin: 0;
         text-align: center;
-        text-transform: uppercase;
         font-weight: lighter;
-        font-size: 19px;
-        position: absolute;
-        -ms-transform: translateY(-50%);
-        transform: translateY(-50%);
+        font-size: 30px;
     }
 
     .header {
-        background-color: #323232;
-        border-bottom: 1px solid white;
+        background-color: #1E1E1E;
         text-align: center;
-        height: 60px;
+        height: 55px;
         width: 100%;
         position: fixed;
         left: 0;
@@ -69,7 +64,7 @@
         position: absolute;
         width: 200px;
         height: 200px;
-        top: -83%;
+        top: -92%;
         right: -60px;
         cursor: pointer;
 

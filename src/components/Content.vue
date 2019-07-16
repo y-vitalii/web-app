@@ -1,7 +1,10 @@
 <template>
     <div id="main-content">
         <div class="select-block">
-            <div class="head-text">PRODUCTS</div>
+            <div class="head-text">
+                <h4>{{$t('browse_text1')}}</h4>
+                <h4>{{$t('browse_text2')}}</h4>
+            </div>
             <label>
                 <Select @click="handlerSelectClick" />
             </label>
@@ -137,9 +140,13 @@
 
     .head-text {
         font-size: 30px;
-        font-weight: bold;
+        font-weight: lighter;
         padding-top: 50px;
         color: white;
+    }
+
+    h4 {
+        font-weight: 100;
     }
 
     .products-content {
@@ -157,8 +164,6 @@
         position: sticky;
         top: -50px;
         z-index: 199;
-        border-top: 1px solid white;
-        border-bottom: 1px solid white;
     }
 
     .disabled {
@@ -172,7 +177,7 @@
 
     .swiper-slide {
         text-align: center;
-        background-color: rgba(238, 238, 238, 0.3);
+        /*background-color: rgba(238, 238, 238, 0.3);*/
         border-radius: 5px;
         display: -webkit-box;
         display: -ms-flexbox;
