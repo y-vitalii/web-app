@@ -5,6 +5,13 @@
     src: url('GothamPro.ttf');
 }
 
+@font-face {
+    font-family: 'Digital';
+    font-style: normal;
+    font-weight: 400;
+    src: url('digital-dismay.regular.otf');
+}
+
 * {
     margin: 0;
     padding: 0;

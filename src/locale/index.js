@@ -4,10 +4,11 @@ const i18n = {
    messages: {
       ua: {
          uah: 'грн',
-         text1: 'BEER, WINE & SPIRITS',
-         text2: 'DELIVERED WITHIN AN HOUR',
-         browse_text1: 'BROWSE TO FIND',
-         browse_text2: 'YOUR FAVORITES.'
+         text1: 'ЭКСПРЕСС ДОСТАВКА АЛКОГОЛЯ',
+         text2: 'В НОЧНОЕ ВРЕМЯ',
+         browse_text_found: 'НАЙДИ',
+         browse_text1: ' ТО, ЧТО ТЕБЕ',
+         browse_text2: 'ПО ВКУСУ'
       }
    }
 };

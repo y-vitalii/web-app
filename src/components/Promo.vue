@@ -5,6 +5,9 @@
             <div class="promo-text">{{$t('text1')}}</div>
             <div class="promo-text">{{$t('text2')}}</div>
         </div>
+        <div class="promo-time">
+            22:00-6:00
+        </div>
     </div>
 </template>
 
@@ -29,17 +32,29 @@
 
     .promo :first-child {
         font-weight: bold;
-        font-size: 31px;
+        font-size: 27px;
     }
 
     .promo :last-child {
         font-size: 24px;
         font-weight: 300;
+        margin-top: 7px;
     }
 
     .promo-text {
         color: white;
         font-size: 30px;
+    }
+
+    .promo-time {
+        padding: 6px 20px;
+        width: max-content;
+        font-family: 'Digital', serif;
+        font-size: 29px;
+        color: white;
+        margin: 50px auto;
+        border: 2px solid white;
+        border-radius: 5px;
     }
 
     .promo-img {

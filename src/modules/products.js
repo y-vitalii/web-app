@@ -39,7 +39,6 @@ const mutations = {
         state.drinks = drinks;
     },
     setDrink(state, obj) {
-        debugger
         state.drinks.splice(obj.index, 1, obj.item);
     },
     setFoods(state, foods) {

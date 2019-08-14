@@ -2,7 +2,7 @@
     <div id="main-content">
         <div class="select-block">
             <div class="head-text">
-                <h4>{{$t('browse_text1')}}</h4>
+                <h4><h4 style="display: inline-block">{{$t('browse_text_found')}}</h4>{{$t('browse_text1')}}</h4>
                 <h4>{{$t('browse_text2')}}</h4>
             </div>
             <label>
@@ -134,19 +134,23 @@
 
 <style scoped>
     #main-content {
-        background-color: #404040;
+        background-color: #323232;
         padding-bottom: 100px;
     }
 
     .head-text {
-        font-size: 30px;
+        font-size: 25px;
         font-weight: lighter;
-        padding-top: 50px;
+        padding-top: 30px;
         color: white;
     }
 
     h4 {
         font-weight: 100;
+    }
+
+    h4 h4:first-child {
+        color: #f09b00;
     }
 
     .products-content {
