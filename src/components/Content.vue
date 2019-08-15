@@ -10,19 +10,14 @@
             </label>
         </div>
         <div class="products-content">
-            <swiper :options="swiperOption"
-                    ref="mySwiper">
-                <swiper-slide v-for="(item, index) in items"
-                              :key="item.key">
+            <div class="grid-container grid-container--fit">
+                <div class="grid-element" v-for="(item, index) in items" :key="item.key">
                     <Product />
-                    <button v-bind:class="[item.isAdded ? disabled : '', button]"
-                            @click="addProductToCart1(item, index)">Buy
-                    </button>
-                </swiper-slide>
-                <div class="swiper-pagination" slot="pagination"></div>
-                <div class="swiper-button-prev" slot="button-prev"></div>
-                <div class="swiper-button-next" slot="button-next"></div>
-            </swiper>
+<!--                    <button v-bind:class="[item.isAdded ? disabled : '', button]"-->
+<!--                            @click="addProductToCart1(item, index)">Buy-->
+<!--                    </button>-->
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -30,32 +25,16 @@
 <script>
     import Select from './Select'
     import Product from './Product'
-    import {swiper, swiperSlide} from 'vue-awesome-swiper'
     import {mapState, mapActions, mapMutations} from 'vuex'
-
-    import 'swiper/dist/css/swiper.css'
 
     export default {
         name: "Content",
         components: {
             Select,
-            Product,
-            swiper,
-            swiperSlide
+            Product
         },
         data: function () {
             return {
-                swiperOption: {
-                    slidesPerView: 3,
-                    spaceBetween: 5,
-                    pagination: {
-                        el: '.swiper-pagination'
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev'
-                    }
-                },
                 currentSelect: 'foods',
                 activeSection: '',
                 items: [],
@@ -141,7 +120,7 @@
     .head-text {
         font-size: 25px;
         font-weight: lighter;
-        padding-top: 30px;
+        padding-top: 35px;
         color: white;
     }
 
@@ -160,7 +139,7 @@
         overflow: hidden;
         display: inline-block;
         width: 100%;
-        max-width: 1200px;
+        max-width: 450px;
     }
 
     .select-block {
@@ -213,5 +192,21 @@
 
     .disabled {
         background-color: #898989;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-gap: 7px 7px;
+    }
+
+    .grid-container--fit {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+
+    .grid-element {
+        /*background-color: deepPink;*/
+        /*padding: 20px;*/
+        /*color: #fff;*/
+        /*border: 1px solid #fff;*/
     }
 </style>

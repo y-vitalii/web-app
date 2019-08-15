@@ -1,12 +1,14 @@
 <template>
     <div id="select-content">
-        <ul class="select">
-            <li :class="{ selected: item.isActive }"
-                :key="item.text"
-                v-for="item in items"
-                v-on:click="toggleActive(item)">
-                Popular {{ item.text }}
-            </li>
+        <ul class="select" ref="selectList">
+            <div v-dragscroll>
+                <li :class="{selected: item.isActive }"
+                    :key="item.text"
+                    v-for="item in items"
+                    v-on:click="toggleActive(item)">
+                    {{ $t(item.text) }}
+                </li>
+            </div>
         </ul>
     </div>
 </template>
@@ -17,9 +19,13 @@
         data: function () {
             return {
                 items: [
-                    {text: 1, isActive: true, key: 'drinks'},
-                    {text: 2, isActive: false, key: 'foods'},
-                    {text: 3, isActive: false}
+                    {text: 'cognac', isActive: true, key: 'drinks'},
+                    {text: 'vodka', isActive: false, key: 'foods'},
+                    {text: 'wine', isActive: false},
+                    {text: 'beer', isActive: false},
+                    {text: 'elite', isActive: false},
+                    {text: 'drinks', isActive: false},
+                    {text: 'snacks', isActive: false}
                 ],
                 currentSelected: null
             }
@@ -43,32 +49,44 @@
     #select-content {
         padding-top: 30px;
         text-align: center;
+        overflow: hidden;
+        /*display: flex;*/
+        /*flex-direction: row;*/
+        /*width: 100%;*/
         /*position: sticky;*/
         /*top: 0;*/
     }
 
     .select {
         margin: 0 auto;
-        padding: 0;
+        /*padding: 0;*/
         padding-bottom: 10px;
         /*border-bottom: 1px #a5a5a5 solid;*/
-        width: 85%;
+        width: max-content;
+        overflow: hidden;
+        border-bottom: 1px solid grey;
+        cursor: grab;
+        /*overflow: hidden;*/
+        /*display: flex;*/
     }
 
     .select li {
         cursor: pointer;
-        color: #f99700;
-        font-family: "Bitstream Vera Sans";
-        font-size: 25px;
+        color: gray;
+        font-weight: bold;
+        /*font-family: "Bitstream Vera Sans";*/
+        font-size: 13px;
         margin-left: 10px;
         margin-right: 10px;
         text-transform: uppercase;
         display: inline-block;
+        /*display: flex;*/
+        /*flex-direction: row;*/
         /*width: 33.33333%;*/
     }
 
     .select li:hover {
-        color: #f09b00;
+        color: white;
         -webkit-transition: color ease-in-out 500ms;
         -moz-transition: color ease-in-out 500ms;
         -o-transition: color ease-in-out 500ms;
@@ -80,9 +98,11 @@
     /*    !*line-height: 14px;*!*/
     /*    !*top:50px;*!*/
     /*    content: ' ';*/
+    /*    display: flex;*/
     /*    background: #FFA800;*/
     /*    height: 4px;*/
     /*    width: 85px;*/
+    /*    justify-content: center;*/
     /*    position: absolute;*/
     /*    !*display: block;*!*/
     /*    -webkit-transition-duration: 0.5s;*/
@@ -106,7 +126,7 @@
     /*}*/
 
     .selected {
-        color: #ceb800 !important;
+        color: white !important;
     }
 
     .selected:before {

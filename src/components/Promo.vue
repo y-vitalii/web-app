@@ -1,19 +1,34 @@
 <template>
-    <div id="promo-content">
-        <img class="promo-img" src="../assets/parachutes.png" />
-        <div class="promo">
-            <div class="promo-text">{{$t('text1')}}</div>
-            <div class="promo-text">{{$t('text2')}}</div>
-        </div>
-        <div class="promo-time">
-            22:00-6:00
+    <div id="promo-content" ref="bg">
+        <div ref="promo">
+            <img class="promo-img" src="../assets/parachutes.png" />
+            <div class="promo">
+                <div class="promo-text">{{$t('text1')}}</div>
+                <div class="promo-text">{{$t('text2')}}</div>
+            </div>
+            <div class="promo-time">
+                22:00-6:00
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "Promo"
+        name: "Promo",
+        props: ['headerImg'],
+        methods: {
+            handleScroll: function () {
+                this.$refs.promo.style.opacity = (1 - (window.scrollY * 0.37 / 100)).toString();
+                this.$refs.bg.style.backgroundPosition = '50% ' + (window.scrollY * 0.4) + 'px';
+            }
+        },
+        created() {
+            window.addEventListener('scroll', this.handleScroll);
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll)
+        }
     }
 </script>
 

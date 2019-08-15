@@ -1,6 +1,7 @@
 <template>
     <div id="header-content">
         <div class="header">
+            <img class="header-img hidden" ref="headerImg" src="../assets/parachutes.png" />
             <router-link to="/" class="header-logo" tag="div">
                 <img src="../assets/top_logo.png"  width="160" height="160">
             </router-link>
@@ -25,7 +26,22 @@
             ...mapGetters('cart', {
                 totalQuantity: 'getTotalQuantity'
             })
-        })
+        }),
+        methods: {
+            handleScroll: function () {
+                if (window.scrollY > 396) {
+                    this.$refs.headerImg.classList.remove('hidden');
+                } else {
+                    this.$refs.headerImg.classList.add('hidden');
+                }
+            }
+        },
+        created() {
+            window.addEventListener('scroll', this.handleScroll)
+        },
+        destroyed() {
+            window.removeEventListener('scroll', this.handleScroll)
+        }
     }
 </script>
 
@@ -105,5 +121,47 @@
         right: 21px;
         font-size: 15px;
         color: white;
+    }
+
+    .header-img {
+        width: 45px;
+        height: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 3px;
+        /*cursor: pointer;*/
+        margin: auto;
+        max-width: 105px;
+        /*transition: visibility 0s, opacity 10s linear;*/
+        /*transition: all .5s ease-in-out;*/
+        animation: 0.5s fadeIn;
+        animation-fill-mode: forwards;
+    }
+
+    .hidden {
+        animation: 0.5s fadeOut;
+        animation-fill-mode: forwards;
+    }
+
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+        100% {
+            visibility: hidden;
+            opacity: 0;
+        }
     }
 </style>
