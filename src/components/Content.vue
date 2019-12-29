@@ -11,8 +11,8 @@
         </div>
         <div class="products-content">
             <div class="grid-container grid-container--fit">
-                <div class="grid-element" v-for="(item, index) in items" :key="item.key">
-                    <Product />
+                <div class="grid-element" v-for="item in items" :key="item.key">
+                    <Product v-bind:imgSrc="item.name"/>
 <!--                    <button v-bind:class="[item.isAdded ? disabled : '', button]"-->
 <!--                            @click="addProductToCart1(item, index)">Buy-->
 <!--                    </button>-->
@@ -79,6 +79,7 @@
                     this.items = this.drinks;
                 } else {
                     this.$store.dispatch('products/getDrinks').then((data) => {
+                        // debugger
                         this.items = data;
                     });
                 }
@@ -88,6 +89,7 @@
                     this.items = this.foods;
                 } else {
                     this.$store.dispatch('products/getFoods').then((data) => {
+                      // debugger
                         this.items = data;
                     });
                 }
@@ -139,7 +141,7 @@
         overflow: hidden;
         display: inline-block;
         width: 100%;
-        max-width: 450px;
+        max-width: 700px;
     }
 
     .select-block {
@@ -197,11 +199,18 @@
     .grid-container {
         display: grid;
         grid-gap: 7px 7px;
+        justify-content: center;
     }
 
     .grid-container--fit {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     }
+
+    /*@media only screen and (max-width: 600px) {*/
+    /*    .grid-container--fit {*/
+    /*        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));*/
+    /*    }*/
+    /*}*/
 
     .grid-element {
         /*background-color: deepPink;*/

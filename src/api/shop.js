@@ -35,13 +35,13 @@ export default {
     },
     getDrinks() {
         const testData = [
-            {key: 1, name: 'Product product', cost: 100, imgSrc: ''},
-            {key: 2, name: 'Product product', cost: 200, imgSrc: ''},
-            {key: 3, name: 'Product product', cost: 300, imgSrc: ''},
-            {key: 4, name: 'Product product', cost: 400, imgSrc: ''},
-            {key: 5, name: 'Product product', cost: 500, imgSrc: ''},
-            {key: 6, name: 'Product product', cost: 600, imgSrc: ''},
-            {key: 7, name: 'Product product', cost: 700, imgSrc: ''}
+            {key: 1, name: 'img', cost: 100, imgSrc: require('../assets/products/1.png')},
+            {key: 2, name: 'img', cost: 200, imgSrc: require('../assets/products/1.png')},
+            {key: 3, name: 'img', cost: 300, imgSrc: require('../assets/products/1.png')},
+            {key: 4, name: 'img', cost: 400, imgSrc: require('../assets/products/1.png')},
+            {key: 5, name: 'img', cost: 500, imgSrc: require('../assets/products/1.png')},
+            {key: 6, name: 'img', cost: 600, imgSrc: require('../assets/products/1.png')},
+            {key: 7, name: 'img', cost: 700, imgSrc: require('../assets/products/1.png')}
         ];
 
         return new Promise(function (resolve) {
@@ -54,10 +54,10 @@ export default {
     },
     getFoods() {
         const testData = [
-            {key: 1, name: '1', cost: 100, imgSrc: ''},
-            {key: 2, name: '1', cost: 200, imgSrc: ''},
-            {key: 3, name: '1', cost: 300, imgSrc: ''},
-            {key: 4, name: '1', cost: 400, imgSrc: ''}
+            {key: 11, name: 'img1', cost: 100, imgSrc: require('../assets/products/2.jpg')},
+            {key: 12, name: 'img1', cost: 200, imgSrc: require('../assets/products/2.jpg')},
+            {key: 13, name: 'img1', cost: 300, imgSrc: require('../assets/products/2.jpg')},
+            {key: 14, name: 'img1', cost: 400, imgSrc: require('../assets/products/2.jpg')}
         ];
 
         return new Promise(function (resolve) {

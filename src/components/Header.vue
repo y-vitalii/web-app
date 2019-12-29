@@ -1,17 +1,17 @@
 <template>
     <div id="header-content">
         <div class="header">
-            <img class="header-img hidden" ref="headerImg" src="../assets/parachutes.png" />
+            <img class="header-img hidden" ref="headerImg" src="../assets/parachutes.png"/>
             <router-link to="/" class="header-logo" tag="div">
-                <img src="../assets/top_logo.png"  width="160" height="160">
+                <img src="../assets/top_logo.png" width="160" height="160">
             </router-link>
             <router-link class="barket" to="/cart" tag="div">
-                <img src="../assets/shopping_cart.png"  width="40" height="40">
-                <span v-if="totalQuantity" class="dot"></span>
+                <img src="../assets/shopping_cart.png" width="30" height="30">
+                <span v-if="totalQuantity" class="barket dot"></span>
+                <div v-if="totalQuantity" class="barket cart-count">{{totalQuantity}}</div>
             </router-link>
-            <div v-if="totalQuantity" class="cart-count">{{totalQuantity}}</div>
         </div>
-        <Promo />
+        <Promo/>
     </div>
 </template>
 
@@ -29,7 +29,7 @@
         }),
         methods: {
             handleScroll: function () {
-                if (window.scrollY > 396) {
+                if (window.scrollY > 395) {
                     this.$refs.headerImg.classList.remove('hidden');
                 } else {
                     this.$refs.headerImg.classList.add('hidden');
@@ -86,6 +86,7 @@
 
     .barket {
         display: flex;
+        /*position: relative;*/
         width: 50%;
         align-items: center;
         justify-content: center;
@@ -106,30 +107,32 @@
     }
 
     .dot {
-        height: 100px;
-        width: 100px;
-        background-color: #00ffc0;
+        height: 15px;
+        width: 15px;
+        background-color: #b70b0bfc;
         border-radius: 50%;
-        position: absolute;
         left: 125px;
+        margin-left: -9px;
+        margin-top: -20px;
     }
 
     .cart-count {
-        position: absolute;
+        /*position: absolute;*/
         font-weight: bold;
-        top: 10px;
-        right: 21px;
+        /*top: 10px;*/
+        /*right: 21px;*/
         font-size: 15px;
         color: white;
+        width: max-content;
     }
 
     .header-img {
-        width: 45px;
+        width: 30px;
         height: auto;
         position: absolute;
         left: 0;
         right: 0;
-        top: 3px;
+        top: 12px;
         /*cursor: pointer;*/
         margin: auto;
         max-width: 105px;
@@ -144,6 +147,17 @@
         animation-fill-mode: forwards;
     }
 
+    @media only screen and (max-width: 600px) {
+        .barket {
+            justify-content: flex-end;
+            margin-right: 17px;
+        }
+
+        .header-logo {
+            justify-content: flex-start;
+            margin-left: 7px;
+        }
+    }
 
     @keyframes fadeIn {
         0% {

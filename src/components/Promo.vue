@@ -19,7 +19,7 @@
         props: ['headerImg'],
         methods: {
             handleScroll: function () {
-                this.$refs.promo.style.opacity = (1 - (window.scrollY * 0.37 / 100)).toString();
+                this.$refs.promo.style.opacity = (1 - (window.scrollY * 0.31 / 100)).toString();
                 this.$refs.bg.style.backgroundPosition = '50% ' + (window.scrollY * 0.4) + 'px';
             }
         },
