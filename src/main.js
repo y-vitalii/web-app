@@ -14,8 +14,8 @@ const router = new VueRouter(r);
 const i18n = new VueI18n(i);
 
 new Vue({
-  router,
-  i18n,
-  store,
-  render: h => h(App)
+    router,
+    i18n,
+    store,
+    render: h => h(App)
 }).$mount('#app');

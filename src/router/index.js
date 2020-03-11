@@ -1,4 +1,5 @@
 import Cart from '../components/Cart';
+import Order from '../components/Order';
 import BaseLayout from '../components/layouts/Base-layout';
 
 const router = {
@@ -12,6 +13,10 @@ const router = {
         {
             path: '/cart',
             component: Cart
+        },
+        {
+            path: '/order',
+            component: Order
         }
     ]
 };

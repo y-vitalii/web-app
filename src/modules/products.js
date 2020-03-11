@@ -1,13 +1,45 @@
 import shop from '../api/shop';
 
 const state = {
-    drinks: [],
-    foods: []
+    items: {},
+    categories: [],
+    current: '',
+    deliveryPrice: 50
 };
 
-const getters = {};
+const getters = {
+    getDeliveryPrice: (state, getters) => {
+        return state.deliveryPrice;
+    }
+};
 
 const actions = {
+    async getProducts({commit, state}) {
+        let data,
+            parsedProducts = {};
+
+        if (!Object.keys(state.items).length) {
+            data = await shop.getProducts();
+
+            for (const i in data.items) {
+                const item = data.items[i];
+
+                if (!parsedProducts[item.category]) parsedProducts[item.category] = [];
+                parsedProducts[item.category].push(item);
+            }
+
+            commit('setCurrent', Object.keys(parsedProducts)[0]);
+            commit('setItems', parsedProducts);
+            commit('setCategories', Object.keys(parsedProducts))
+        } else {
+            data = state;
+        }
+
+        return parsedProducts;
+    },
+    getCategories() {
+
+    },
     async getDrinks({commit, state}) {
         let data;
 
@@ -35,6 +67,17 @@ const actions = {
 };
 
 const mutations = {
+    setItems(state, items) {
+        Object.keys(items).forEach((key) => {
+            state.items[key] = items[key];
+        })
+    },
+    setCategories(state, list) {
+        state.categories = list;
+    },
+    setCurrent(state, name) {
+        state.current = name;
+    },
     setDrinks(state, drinks) {
         state.drinks = drinks;
     },
@@ -45,7 +88,6 @@ const mutations = {
         state.foods = foods;
     }
 };
-
 
 export default {
     namespaced: true,

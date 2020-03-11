@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const client = axios.create({
-    baseURL: 'https://www.reddit.com',
+    baseURL: 'http://157.230.98.219:88/api',
     json: true
 });
 
@@ -67,5 +67,11 @@ export default {
         }).then(function () {
             return testData;
         });
+    },
+    getProducts() {
+        return this.execute('get', `/items`)
+    },
+    sendOrder(data) {
+        return this.execute('post', `/order`, JSON.stringify(data))
     }
 }

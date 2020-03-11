@@ -1,8 +1,8 @@
 <template>
     <div id="product-content">
-        <div class="top-text">Ром Captain Morgan, 0.5</div>
+        <div class="top-text">{{this.item.name}}</div>
         <div class="img-content swiper-lazy" v-on:click="select()">
-            <img :src="getImg(imgSrc1)"  style="z-index: 10" width="40" height="120">
+            <img v-bind:src="this.item.photo_filename" style="z-index: 10; width: 100%; padding-bottom: 30px;" height="220">
         </div>
         <transition name="fade">
             <div v-if="selected">
@@ -19,8 +19,8 @@
                 </div>
             </div>
         </transition>
-        <div class="bottom">
-            <div class="bottom-text">225 грн</div>
+        <div class="bottom" v-bind:style="{backgroundColor: this.item.color}">
+            <div class="bottom-text">{{this.item.price}} грн</div>
         </div>
     </div>
 </template>
@@ -32,7 +32,9 @@
     export default {
         name: "Product",
         props: {
-          imgSrc: String
+            imgSrc: String,
+            itemParam: Object,
+            indexParam: String
         },
         data: function () {
             return {
@@ -42,12 +44,14 @@
                 timeOut: null,
                 imgSrc1: this.imgSrc,
                 img,
-                img1
+                img1,
+                item: this.itemParam,
+                index: this.indexParam
             }
         },
         methods: {
-            getImg:function (key) {
-              return this[key]
+            getImg: function (key) {
+                return this[key]
             },
             select: function () {
                 if (!this.selected) {
@@ -64,6 +68,12 @@
             addToCart: function () {
                 if (!this.inCart) {
                     this.inCart = true;
+                    this.item.index = this.index;
+
+                    if (this.item.quantity) this.item.quantity += this.count;
+                    else this.item.quantity = this.count;
+
+                    this.$emit('click', this.item);
 
                     clearTimeout(this.timeOut);
                     setTimeout(this.unSelect, 2500);
@@ -92,6 +102,7 @@
         position: relative;
         border-radius: 5px;
         width: 100%;
+        height: 100%;
         /*margin-left: 10px;*/
         /*margin-right: 10px;*/
         background-color: white;
@@ -125,10 +136,13 @@
 
     .bottom {
         display: flex;
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         background-color: #1f1c3a;
         height: 30px;
         border-radius: 0 0 4px 4px;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
     }
 
     .bottom-text {

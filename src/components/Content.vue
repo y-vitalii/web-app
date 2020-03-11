@@ -1,21 +1,22 @@
 <template>
     <div id="main-content">
+        <Promo/>
         <div class="select-block">
             <div class="head-text">
                 <h4><h4 style="display: inline-block">{{$t('browse_text_found')}}</h4>{{$t('browse_text1')}}</h4>
                 <h4>{{$t('browse_text2')}}</h4>
             </div>
             <label>
-                <Select @click="handlerSelectClick" />
+                <Select v-bind:categoriesList="categoryList" @click="handlerSelectClick"/>
             </label>
         </div>
         <div class="products-content">
             <div class="grid-container grid-container--fit">
-                <div class="grid-element" v-for="item in items" :key="item.key">
-                    <Product v-bind:imgSrc="item.name"/>
-<!--                    <button v-bind:class="[item.isAdded ? disabled : '', button]"-->
-<!--                            @click="addProductToCart1(item, index)">Buy-->
-<!--                    </button>-->
+                <div class="grid-element" v-for="item in items" :key="item.id">
+                    <Product v-bind:itemParam="item" @click="addProduct"/>
+                    <!--                    <button v-bind:class="[item.isAdded ? disabled : '', button]"-->
+                    <!--                            @click="addProduct(item, index)">Buy-->
+                    <!--                    </button>-->
                 </div>
             </div>
         </div>
@@ -26,10 +27,12 @@
     import Select from './Select'
     import Product from './Product'
     import {mapState, mapActions, mapMutations} from 'vuex'
+    import Promo from "./Promo";
 
     export default {
         name: "Content",
         components: {
+            Promo,
             Select,
             Product
         },
@@ -38,20 +41,15 @@
                 currentSelect: 'foods',
                 activeSection: '',
                 items: [],
+                categoryList: [],
                 button: 'button',
                 disabled: 'disabled'
             }
         },
         methods: {
-            handlerSelectClick(item) {
-                this.currentSelect = item.key;
-                if (this.currentSelect === 'drinks') {
-                    this.getDrinks();
-                } else {
-                    this.getFoods();
-                }
-                // this.$store.commit('setActive', item.key);
-
+            handlerSelectClick(key) {
+                if (this.$store.state.products.items[key]) this.items = this.$store.state.products.items[key];
+                else this.items = [];
             },
             changeTopic: function () {
 
@@ -59,10 +57,10 @@
             slide: function () {
 
             },
-            addProductToCart1: function (item, index) {
+            addProduct: function (item) {
                 item.isAdded = !item.isAdded;
 
-                this.items.splice(index, 1, item);
+                // this.items.splice(index, 1, item);
                 // debugger
                 // this.setDrink({index, item});
                 this.addProductToCart(item);
@@ -72,8 +70,18 @@
                 // getDrinks: 'products/getDrinks'
             }),
             ...mapMutations({
-                setDrink: 'products/setDrink'
+                setDrink: 'products/setDrink',
+                setItems: 'cart/setItems'
             }),
+            getProducts() {
+                if (Object.keys(this.products.items).length) {
+                    this.items = this.products.items[this.products.current];
+                } else {
+                    this.$store.dispatch('products/getProducts').then((data) => {
+                        this.items = data[Object.keys(data)[0]];
+                    });
+                }
+            },
             getDrinks() {
                 if (this.drinks.length) {
                     this.items = this.drinks;
@@ -81,6 +89,7 @@
                     this.$store.dispatch('products/getDrinks').then((data) => {
                         // debugger
                         this.items = data;
+                        this.categoryList = this.categories;
                     });
                 }
             },
@@ -89,26 +98,22 @@
                     this.items = this.foods;
                 } else {
                     this.$store.dispatch('products/getFoods').then((data) => {
-                      // debugger
+                        // debugger
                         this.items = data;
                     });
                 }
             }
         },
         created: function () {
-            if (this.currentSection === 'foods') {
-                this.getFoods();
-            } else {
-                this.getDrinks();
-            }
+            window.scrollTo(0, 0);
+            this.getProducts();
         },
         computed: mapState({
+            products: state => state.products,
             drinks: state => state.products.drinks,
             foods: state => state.products.foods,
             currentSection: state => state.currentSection,
-            swiper() {
-                return this.$refs.mySwiper.swiper
-            }
+            categories: state => state.categories
         })
     }
 </script>
@@ -141,12 +146,12 @@
         overflow: hidden;
         display: inline-block;
         width: 100%;
-        max-width: 700px;
+        max-width: 900px;
     }
 
     .select-block {
         background-color: #323232;
-        position: sticky;
+        /*position: sticky;*/
         top: -50px;
         z-index: 199;
     }
@@ -203,7 +208,7 @@
     }
 
     .grid-container--fit {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 170px));
     }
 
     /*@media only screen and (max-width: 600px) {*/

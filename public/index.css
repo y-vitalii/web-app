@@ -12,6 +12,20 @@
     src: url('digital-dismay.regular.otf');
 }
 
+@font-face {
+    font-family: 'CalibriBold';
+    font-style: normal;
+    font-weight: 100;
+    src: url('CALIBRIB.TTF');
+}
+
+@font-face {
+    font-family: 'CalibriLight';
+    font-style: normal;
+    font-weight: 100;
+    src: url('calibril.ttf');
+}
+
 * {
     margin: 0;
     padding: 0;

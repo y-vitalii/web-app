@@ -1,65 +1,135 @@
 <template>
     <div id="cart-content">
-        <Header />
-        <div class="cart-content">
+        <div v-bind:class="['cart-content', isMobile ? mobile : '']">
+            <div v-bind:class="['cart-text', isMobile ? mobile : '']">Корзина</div>
             <ul>
                 <transition-group appear name="slide-fade">
-                    <li class="cart-value" v-for="(item, index) in items" :key="item.key">
-                        <div class="top-content">
-                            <div class="inline image left">
-                                <img src="../assets/products/item1.png" width="70" height="70">
-                            </div>
-                            <div class="inline info center">{{item.name}}</div>
-                            <button class="inline button right" @click="removeItem({index})">x</button>
-                        </div>
-                        <div class="bottom-content">
-                            <div class="inline left text-style">{{item.cost}} Грн</div>
-                            <div class="inline center">
-                                <button class="button" @click="changeQuantity({index})">-</button>
-                                <div class="inline text-style">{{item.quantity}}</div>
-                                <button class="button" @click="changeQuantity({index, isUp:'up'})">+</button>
-                            </div>
-                            <div class="inline right text-style total">{{item.cost * item.quantity}} Грн</div>
-                        </div>
+                    <li v-bind:class="[cartValue, isMobile ? mobile : '']" v-for="(item) in items" :key="item.id">
+                        <CartProduct v-if="!isMobile" v-bind:item="item" v-bind:test="item.quantity"
+                                     @click:remove="removeByKey"
+                                     @click:addOne="addOne" @click:removeOne="removeOne"/>
+                        <CartProductMobile v-if="isMobile" v-bind:item="item" v-bind:test="item.quantity"
+                                           @click:remove="removeByKey"
+                                           @click:addOne="addOne" @click:removeOne="removeOne"/>
                     </li>
                 </transition-group>
             </ul>
-            <div class="confirm-content">
-                <button class="inline button-accept col2">Заказать</button>
-                <h3 class="inline col2">Total price: {{total}} {{$t('uah')}}</h3>
+            <div v-bind:class="[confirmContent, isMobile ? mobile : '']">
+                <!--                <h3 class="inline col2">Total price: {{total}} {{$t('uah')}}</h3>-->
+                <div v-bind:class="[confirmText, isMobile ? mobile : '']">
+                    <span style="display: block; color: orange; padding-bottom: 3px;     width: 95%;
+">{{$t('c_text1')}}</span>
+                    <span style="display: block; color: white; padding-bottom: 3px;     width: 95%;
+">1. {{$t('c_text2')}}</span>
+                    <span style="display: block; color: white; padding-bottom: 3px;     width: 95%;
+">2. {{$t('c_text3')}}</span>
+                    <span style="display: block; color: white; padding-bottom: 3px;     width: 95%;
+">3. {{$t('c_text4')}}</span>
+                    <span style="display: block; color: white; padding-bottom: 3px;     width: 95%;
+">4. {{$t('c_text5')}}</span>
+                </div>
+                <div v-bind:class="[confirmForm, isMobile ? mobile : '']">
+                    <div style="text-align: left; padding-bottom: 10px;">
+                        <span style="color:gray; width: 20%;display: inline-block">{{$t('c_text6')}}</span>
+                        <div style="text-align: right; width: 80%; display: inline-block">
+                            <input type="text"
+                                   style="margin-right: 5px;color: gray; border-style: solid; border-width: 1px;border-color: #7d8078;background-color: transparent;padding: 4px;border-radius: 3px;">
+                            <button style="background-color: transparent;border-radius: 3px;color: grey;border: 1px solid grey;padding: 4px 4px;">
+                                OK
+                            </button>
+                        </div>
+                    </div>
+                    <div style="text-align: left; padding-bottom: 10px;">
+                        <span style="color:gray;  display: inline-block; width: 50%;">{{$t('c_text7')}}</span>
+                        <span style="color:gray;    display: inline-block;width: 50%; text-align: right;">50 {{$t('uah')}}</span>
+                    </div>
+                    <div style="text-align: left; padding-bottom: 5px;">
+                        <span style="color:white; font-size: 24px;display: inline-block;width: 50%;">{{$t('c_text8')}}</span>
+                        <span style="color:white; font-size: 24px; display: inline-block;width: 25%; text-align: right;">{{total}} {{$t('uah')}}</span>
+                        <span style="color:white; font-size: 24px; display: inline-block;width: 25%; text-align: right;">{{total + deliveryPrice}} {{$t('uah')}}</span>
+                    </div>
+                    <router-link class="barket" @click.native="doSomethingCool($event)" to="/order" tag="div">
+                        <button v-bind:class="['inline', 'button-accept' , 'col2', !canOrder() ? 'disabled' : '']">
+                            {{$t('c_text9')}}
+                        </button>
+                    </router-link>
+                </div>
             </div>
         </div>
-        <Bottom />
+        <BottomText/>
     </div>
 </template>
 
 <script>
-    import Header from './Header'
-    import Bottom from './Bottom'
     import {mapState, mapGetters, mapMutations} from 'vuex'
+    import * as utils from '../utils/index';
+    import CartProduct from "./CartProduct";
+    import CartProductMobile from "./CartProductMobile";
+    import BottomText from "./BottomText";
 
     export default {
         name: "Cart",
         components: {
-            Header,
-            Bottom
+            BottomText,
+            CartProductMobile,
+            CartProduct
+        },
+        data: function () {
+            return {
+                isMobile: utils.isMobile(),
+                hideBorder: 'hide-border',
+                cartValue: 'cart-value',
+                confirmContent: 'confirm-content',
+                mobile: 'mobile',
+                confirmText: 'confirm-text',
+                confirmForm: 'confirm-form'
+            }
         },
         methods: {
+            doSomethingCool: function (e) {
+                e.preventDefault();
+                // debugger
+            },
+            canOrder: function () {
+                return this.total >= 200;
+            },
             ...mapMutations({
                 changeQuantity: 'cart/changeQuantity',
-                removeItem: 'cart/remove'
+                removeItem: 'cart/remove',
+                removeByKey: 'cart/removeByKey',
+                addOne: 'cart/addOne',
+                removeOne: 'cart/removeOne'
             })
         },
         computed: mapState({
             items: state => state.cart.items,
             ...mapGetters('cart', {
                 total: 'getTotalPrice'
+            }),
+            ...mapGetters('products', {
+                deliveryPrice: 'getDeliveryPrice'
             })
-        })
+        }),
+        created() {
+            window.scrollTo(0, 0);
+            if (!this.items.length) window.location.href = '/';
+        }
     }
 </script>
 
 <style scoped>
+    .cart-text {
+        color: white;
+        font-size: 25px;
+        text-align: left;
+        padding-bottom: 50px;
+    }
+
+    .cart-text.mobile {
+        padding-bottom: 0;
+        padding: 30px 15px;
+    }
+
     .cart-content {
         /*text-align: start;*/
         background-color: #323232;
@@ -71,8 +141,12 @@
         margin: 0 auto;
     }
 
+    .cart-content.mobile {
+        padding-top: 0;
+    }
+
     .inline {
-        display: inline-block;
+        display: table-cell;
     }
 
     .total {
@@ -97,26 +171,43 @@
     }
 
     .button-accept {
-        background-color: green;
-        font-size: 29px;
+        width: 100%;
+        background-color: #44803d;
+        font-size: 21px;
         font-weight: lighter;
         color: white;
         border: none;
-        padding: 7px 15px;
+        padding: 12px 15px;
         cursor: pointer;
-        border-radius: 5px;
+        border-radius: 4px;
     }
 
     .cart-value {
+        display: table;
+        width: 100%;
+        height: 100%;
         border-top: 1px solid #a5a5a5;
+        list-style-type: none;
     }
+
+    .cart-value.mobile {
+        border: none;
+    }
+
+    /*.hide-border {*/
+    /*    !*border: none;*!*/
+    /*}*/
 
     .cart-value:last-child {
         border-bottom: 1px solid #a5a5a5;
     }
 
+    .cart-value.mobile:last-child {
+        border-bottom: none;
+    }
+
     .info {
-        font-family: "Bitstream Vera Sans";
+        /*font-family: "Bitstream Vera Sans";*/
         color: #ce7b00;
         font-size: 27px;
         font-weight: lighter;
@@ -166,16 +257,55 @@
     }
 
     .text-style {
-        font-family: "Bitstream Vera Sans";
         font-size: 20px;
         color: #ce980a;
     }
 
     .confirm-content {
-        font-family: "Bitstream Vera Sans";
-        font-size: 20px;
-        color: #ce980a;
-        padding-top: 50px;
+        font-family: "CalibriLight";
+        display: flex;
+        /*justify-content: space-between;*/
+        /*font-size: 20px;*/
+        /*color: #ce980a;*/
+        padding-top: 30px;
+    }
+
+    .confirm-content.mobile {
+        display: flex;
+        flex-direction: column-reverse;
+        margin: 5px 15px;
+    }
+
+    .confirm-text {
+        width: 55%;
+        display: inline-block;
+        text-align: left;
+    }
+
+    .confirm-text.mobile {
+        width: 100%;
+        padding-top: 40px;
+    }
+
+    .confirm-form {
+        width: 45%;
+        display: inline-block;
+        vertical-align: top;
+        min-width: max-content;
+        max-width: 100%;
+    }
+
+    .confirm-form.mobile {
+        /*width: 100%;*/
+        width: auto;
+        margin-bottom: 15px;
+        background-color: #505050;
+        border-radius: 3px;
+        padding: 10px 10px;
+    }
+
+    .disabled {
+        background-color: #5d5d5d;
     }
 
     h3 {
@@ -186,11 +316,14 @@
     .slide-fade-enter-active {
         transition: all .3s ease;
     }
+
     .slide-fade-leave-active {
         transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
+
     .slide-fade-enter, .slide-fade-leave-to
-        /* .slide-fade-leave-active до версии 2.1.8 */ {
+        /* .slide-fade-leave-active до версии 2.1.8 */
+    {
         transform: translateX(10px);
         opacity: 0;
     }

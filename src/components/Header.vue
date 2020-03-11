@@ -11,17 +11,14 @@
                 <div v-if="totalQuantity" class="barket cart-count">{{totalQuantity}}</div>
             </router-link>
         </div>
-        <Promo/>
     </div>
 </template>
 
 <script>
-    import Promo from './Promo'
-    import {mapState, mapGetters} from 'vuex'
+    import {mapState, mapGetters, mapMutations} from 'vuex'
 
     export default {
         name: "Header",
-        components: {Promo},
         computed: mapState({
             ...mapGetters('cart', {
                 totalQuantity: 'getTotalQuantity'
@@ -34,13 +31,19 @@
                 } else {
                     this.$refs.headerImg.classList.add('hidden');
                 }
-            }
+            },
+            ...mapMutations({
+                setItems: 'cart/setItems'
+            }),
         },
         created() {
-            window.addEventListener('scroll', this.handleScroll)
+            window.addEventListener('scroll', this.handleScroll);
+
+            const data = localStorage.getItem('after_22_cart');
+            if (data) this.setItems(JSON.parse(data));
         },
         destroyed() {
-            window.removeEventListener('scroll', this.handleScroll)
+            window.removeEventListener('scroll', this.handleScroll);
         }
     }
 </script>
@@ -124,6 +127,15 @@
         font-size: 15px;
         color: white;
         width: max-content;
+
+        font-weight: bold;
+        font-size: 10px;
+        color: white;
+        width: max-content;
+        position: relative;
+        top: -4px;
+        left: -8px;
+        transform: translate(-50%, -50%);
     }
 
     .header-img {
