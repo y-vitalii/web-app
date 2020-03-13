@@ -91,7 +91,7 @@ const mutations = {
         addToLocalStorage();
     },
     setItems(state, items) {
-        state.items.push.apply(state.items, items)
+        if (!state.items.length) state.items.push.apply(state.items, items)
     }
 };
 

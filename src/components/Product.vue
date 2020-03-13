@@ -119,6 +119,7 @@
     .top-text {
         color: black;
         font-size: 12px;
+        height: 30px;
         font-weight: bold;
         padding-bottom: 10px;
         padding-top: 10px;

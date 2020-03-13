@@ -2,7 +2,7 @@
     <div id="cart-content">
         <div v-bind:class="['cart-content', isMobile ? mobile : '']">
             <div v-bind:class="['cart-text', isMobile ? mobile : '']">Корзина</div>
-            <ul>
+            <ul ref="itemsGroup">
                 <transition-group appear name="slide-fade">
                     <li v-bind:class="[cartValue, isMobile ? mobile : '']" v-for="(item) in items" :key="item.id">
                         <CartProduct v-if="!isMobile" v-bind:item="item" v-bind:test="item.quantity"
@@ -48,11 +48,12 @@
                         <span style="color:white; font-size: 24px; display: inline-block;width: 25%; text-align: right;">{{total}} {{$t('uah')}}</span>
                         <span style="color:white; font-size: 24px; display: inline-block;width: 25%; text-align: right;">{{total + deliveryPrice}} {{$t('uah')}}</span>
                     </div>
-                    <router-link class="barket" @click.native="doSomethingCool($event)" to="/order" tag="div">
-                        <button v-bind:class="['inline', 'button-accept' , 'col2', !canOrder() ? 'disabled' : '']">
-                            {{$t('c_text9')}}
-                        </button>
-                    </router-link>
+                    <!--                    <router-link class="barket" @click.native="applyOrder()" to="/order" tag="div">-->
+                    <button @click="applyOrder()"
+                            v-bind:class="['inline', 'button-accept' , 'col2', !canOrder() ? 'disabled' : '']">
+                        {{$t('c_text9')}}
+                    </button>
+                    <!--                    </router-link>-->
                 </div>
             </div>
         </div>
@@ -86,9 +87,8 @@
             }
         },
         methods: {
-            doSomethingCool: function (e) {
-                e.preventDefault();
-                // debugger
+            applyOrder: function () {
+                if (this.canOrder()) this.$router.push('/order');
             },
             canOrder: function () {
                 return this.total >= 200;
@@ -110,9 +110,12 @@
                 deliveryPrice: 'getDeliveryPrice'
             })
         }),
+        mounted() {
+            this.$refs.itemsGroup.style.minHeight = window.innerHeight - 414 + 'px';
+        },
         created() {
             window.scrollTo(0, 0);
-            if (!this.items.length) window.location.href = '/';
+            if (!this.items.length) this.$router.push('/');
         }
     }
 </script>

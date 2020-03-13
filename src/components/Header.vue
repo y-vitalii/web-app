@@ -5,7 +5,7 @@
             <router-link to="/" class="header-logo" tag="div">
                 <img src="../assets/top_logo.png" width="160" height="160">
             </router-link>
-            <router-link class="barket" to="/cart" tag="div">
+            <router-link v-if="barket !== false" class="barket" to="/cart" tag="div">
                 <img src="../assets/shopping_cart.png" width="30" height="30">
                 <span v-if="totalQuantity" class="barket dot"></span>
                 <div v-if="totalQuantity" class="barket cart-count">{{totalQuantity}}</div>
@@ -19,6 +19,14 @@
 
     export default {
         name: "Header",
+        props: {
+            showBarket: Boolean
+        },
+        data: function(){
+           return {
+               barket: this.showBarket
+           }
+        },
         computed: mapState({
             ...mapGetters('cart', {
                 totalQuantity: 'getTotalQuantity'
@@ -162,12 +170,16 @@
     @media only screen and (max-width: 600px) {
         .barket {
             justify-content: flex-end;
-            margin-right: 17px;
+            margin-right: 4px;
         }
 
         .header-logo {
             justify-content: flex-start;
-            margin-left: 7px;
+            margin-left: 2px;
+        }
+
+        .dot {
+            margin-right: 0;
         }
     }
 

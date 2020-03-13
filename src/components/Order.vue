@@ -1,7 +1,7 @@
 <template>
     <div id="order-content">
-        <Header/>
-        <div v-if="!orderSend" class="order-content">
+        <Header v-bind:showBarket='false' />
+        <div v-if="!orderSend" class="order-content" ref="orderContent">
             <div class="order-text">Оформление заказа</div>
             <div class="order-form">
                 <div class="contacts">
@@ -41,7 +41,7 @@
                             <div v-bind:class="['inline', 'width50', isMobile ? 'mobile' : '']" style="color: white;">
                                 Город
                             </div>
-                            <input style="background-color: transparent; border:1px solid grey;box-sizing: border-box;"
+                            <input style="background-color: transparent; border:1px solid grey;box-sizing: border-box; color: #adabab;"
                                    v-bind:class="['inline', 'width50', 'input', isMobile ? 'mobile' : '']" type="text"
                                    value="Кременчуг" readonly>
                         </div>
@@ -69,9 +69,11 @@
                     </div>
                 </div>
                 <div v-bind:class="['comments', isMobile ? 'mobile' : '']">
-                    <div style="color: white;">Комментарий к заказу</div>
+                    <div style="color: white; padding: 0 10px;">Комментарий к заказу</div>
                     <textarea type="text" v-model="formData.comment"
-                              style="width: 100%; height: 90px; margin-top: 5px; border-radius: 3px;resize: none;"></textarea>
+                              style="width: 100%; height: 90px; margin-top: 5px; border-radius: 3px;resize: none;    padding: 5px;
+    box-sizing: border-box;
+    font-size: 15px;"></textarea>
                 </div>
             </div>
             <div class="summary">
@@ -220,7 +222,7 @@
                     this.orderSend = true;
                     this.clearCart();
                     localStorage.removeItem('after_22_cart');
-                    window.scrollTo(0,0);
+                    window.scrollTo(0, 0);
                 }
             }
         },
@@ -235,7 +237,10 @@
         }),
         created() {
             window.scrollTo(0, 0);
-            if (!this.items.length) window.location.href = '/';
+            if (!this.items.length) this.$router.push('/');
+        },
+        mounted() {
+            this.$refs.orderContent.style.minHeight = window.innerHeight - 414 + 'px';
         }
     }
 </script>
@@ -244,6 +249,7 @@
     .order-content {
         max-width: 1000px;
         margin: 0 auto;
+        padding-top: 55px;
     }
 
     input {
@@ -269,10 +275,11 @@
 
     .order-text {
         color: white;
-        font-size: 31px;
+        font-size: 21px;
         text-align: left;
-        padding-top: 25px;
-        padding-bottom: 25px;
+        /*padding-top: 25px;*/
+        /*padding-bottom: 25px;*/
+        padding: 25px 10px;
     }
 
     .order-form {
@@ -364,7 +371,7 @@
         height: 27px;
         border-radius: 3px;
         font-size: 17px;
-        color: grey;
+        color: black;
     }
 
     .text-white {
