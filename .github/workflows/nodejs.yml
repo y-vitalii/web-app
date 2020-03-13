@@ -29,8 +29,3 @@ jobs:
         env:
           CI: true
 
-artifacts:
-  - path: dist/*
-    name: app
-deploy:
-    artifacts: app
