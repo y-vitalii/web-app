@@ -240,7 +240,7 @@
             if (!this.items.length) this.$router.push('/');
         },
         mounted() {
-            this.$refs.orderContent.style.minHeight = window.innerHeight - 414 + 'px';
+            this.$refs.orderContent.style.minHeight = window.innerHeight - 125 + 'px';
         }
     }
 </script>
