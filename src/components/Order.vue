@@ -97,13 +97,11 @@
                             {{deliveryPrice}} грн
                         </div>
                     </div>
-                    <div style="padding-bottom: 5px;">
+                    <div v-if="promoPrice" style="padding-bottom: 5px;">
                         <div class="inline" style="text-align: left; color: white; font-size: 15px; width: 60%;">
                             Промокод
                         </div>
-                        <div class="inline" style="text-align: right; color: white; font-size: 15px;  width: 40%;">0
-                            {{$t('uah')}}
-                        </div>
+                        <div class="inline" style="text-align: right; color: white; font-size: 15px;  width: 40%;">{{promoPrice}} {{$t('uah')}}</div>
                     </div>
                     <div style="border-top: 1px solid white; border-bottom: 1px solid white; margin-bottom: 20px;">
                         <div class="inline"
@@ -112,7 +110,7 @@
                         </div>
                         <div class="inline"
                              style="text-align: right; color: white; font-size: 21px; font-weight: bold; width: 40%;">
-                            {{totalPrice + deliveryPrice}} {{$t('uah')}}
+                            {{totalPrice + deliveryPrice - promoPrice}} {{$t('uah')}}
                         </div>
                     </div>
                     <button class="btn" @click="applyOrder()">Оформить заказ</button>
@@ -229,9 +227,8 @@
         computed: mapState({
             items: state => state.cart.items,
             ...mapGetters('cart', {
-                totalPrice: 'getTotalPrice'
-            }),
-            ...mapGetters('products', {
+                totalPrice: 'getTotalPrice',
+                promoPrice: 'getPromoPrice',
                 deliveryPrice: 'getDeliveryPrice'
             })
         }),

@@ -1,5 +1,7 @@
 const state = {
-    items: []
+    items: [],
+    promoPrice: 0,
+    deliveryPrice: 50
 };
 
 const getters = {
@@ -23,6 +25,12 @@ const getters = {
         return state.items.reduce((total, product) => {
             return total + product.price * product.quantity
         }, 0);
+    },
+    getPromoPrice: (state) => {
+        return state.promoPrice
+    },
+    getDeliveryPrice: (state, getters) => {
+        return state.deliveryPrice;
     }
 };
 
@@ -76,7 +84,7 @@ const mutations = {
     },
     removeByKey(state, id) {
         const index = state.items.findIndex(product => product.id === id);
-        state.items[index].quantity = 1;
+        state.items[index].quantity = 0;
         state.items.splice(index, 1);
 
         addToLocalStorage();
@@ -92,6 +100,17 @@ const mutations = {
     },
     setItems(state, items) {
         if (!state.items.length) state.items.push.apply(state.items, items)
+    },
+    setPromoPrice(state, val) {
+        state.promoPrice = val;
+    },
+    updateDeliveryPrice(state) {
+        const total = state.items.reduce((total, product) => {
+            return total + (product.discount_price ? product.discount_price : product.price) * product.quantity
+        }, 0);
+
+        if (total >= 500) state.deliveryPrice = 0;
+        else if (!state.deliveryPrice) state.deliveryPrice = 50;
     }
 };
 

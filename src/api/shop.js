@@ -73,5 +73,8 @@ export default {
     },
     sendOrder(data) {
         return this.execute('post', `/order`, JSON.stringify(data))
+    },
+    applyPromo(data) {
+        return this.execute('post', '/promo', JSON.stringify(data))
     }
 }

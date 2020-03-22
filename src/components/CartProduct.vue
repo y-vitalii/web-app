@@ -1,13 +1,14 @@
 <template>
     <div id="cart-value">
         <div class="inline image">
-            <img v-bind:src="this.item.photo_filename" width="auto" height="150" style="max-width: 150px;">
+            <img v-bind:src="this.item.photo_filename" width="100" height="150" style="max-width: 150px;">
         </div>
         <div class="inline" style="color: white; width: 40%;vertical-align: middle;text-align: left;">
             {{item.name}}
         </div>
         <div style="vertical-align: middle;">
             <!--            <span style="    position: absolute; top: 30px;">Цена</span>-->
+            <span v-if="item.discount_price" style="color: #b1b1b1; font-size: 12px; padding-right: 10px;">{{item.discount_price ? item.discount_price : item.price}} грн</span>
             <span style="color: white;">{{item.price}} грн</span>
         </div>
         <!--        <div class="quantity-content">-->
@@ -22,7 +23,7 @@
         <!--        </div>-->
         <div style="vertical-align: middle;">
             <!--            <span style="    position: absolute; top: 30px;">Сумма</span>-->
-            <span style="color: orange">{{item.price * item.quantity}} грн</span>
+            <span style="color: orange">{{(item.discount_price ? item.discount_price : item.price) * item.quantity}} грн</span>
         </div>
         <button class="close-btn" @click="removeItem(item.id)">
             <img src="../assets/plus-symbol.png" width="20">
@@ -41,12 +42,15 @@
         methods: {
             up: function (key) {
                 this.$emit('click:addOne', key);
+                this.$emit('click:updateDeliveryPrice');
             },
             down: function (key) {
                 this.$emit('click:removeOne', key);
+                this.$emit('click:updateDeliveryPrice');
             },
             removeItem: function (key) {
                 this.$emit('click:remove', key);
+                this.$emit('click:updateDeliveryPrice');
             }
         }
     }

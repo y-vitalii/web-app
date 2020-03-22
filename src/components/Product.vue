@@ -2,7 +2,8 @@
     <div id="product-content">
         <div class="top-text">{{this.item.name}}</div>
         <div class="img-content swiper-lazy" v-on:click="select()">
-            <img v-bind:src="this.item.photo_filename" style="z-index: 10; width: 100%; padding-bottom: 30px;" height="220">
+            <img v-bind:src="this.item.photo_filename" style="z-index: 10; width: 100%; padding-bottom: 30px;"
+                 height="220">
         </div>
         <transition name="fade">
             <div v-if="selected">
@@ -20,7 +21,10 @@
             </div>
         </transition>
         <div class="bottom" v-bind:style="{backgroundColor: this.item.color}">
-            <div class="bottom-text">{{this.item.price}} грн</div>
+            <div v-if="this.item.discount_price" class="bottom-full-amount-text">{{this.item.price}} грн
+<!--                <div class="line">__________</div>-->
+            </div>
+            <div class="bottom-text">{{this.item.discount_price ? this.item.discount_price : this.item.price}} грн</div>
         </div>
     </div>
 </template>
@@ -149,10 +153,28 @@
     .bottom-text {
         color: white;
         display: flex;
-        font-size: 14px;
+        font-size: 17px;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
+    }
+
+    .bottom-full-amount-text {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+        color: white;
+        font-size: 11px;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+    }
+
+    .bottom-full-amount-text:before {
+        content: '______';
+        position: absolute;
+        top:-50%;
+        width: max-content;
     }
 
     .btn-content {

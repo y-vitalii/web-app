@@ -3,16 +3,19 @@
         <div style="   display: flex;
         justify-content: space-between; width: 100%;">
             <div class="img-content">
-                <img v-bind:src="this.item.photo_filename" width="auto" height="150" style="max-width: 150px;">
+                <img v-bind:src="this.item.photo_filename" width="100" height="150" style="max-width: 150px;">
             </div>
             <div class="info-content" style="height: 100%; width: 70%;">
                 <div style="text-align:left; height: 45px; vertical-align: top; color: white; font-size: 19px;     font: icon;">
                     {{item.name}}
                 </div>
                 <div style="padding-bottom: 10px;">
-                    <div style="color: gray; text-align: left; display: inline-block; width: 50%;">Цена</div>
-                    <div style="color: gray; text-align: right; display: inline-block; width: 50%;">
-                        {{item.price}} грн
+                    <div style="color: #989898; text-align: left; display: inline-block; width: 50%;">Цена</div>
+                    <div style="color: #989898; text-align: right; display: inline-block; width: 50%;">
+                        <div v-if="item.discount_price" style="color: gray; font-size: 12px; text-align: right; display: inline-block;">
+                            {{item.price}} грн
+                        </div>
+                        {{item.discount_price ? item.discount_price : item.price}} грн
                     </div>
                 </div>
                 <div style="border: 1px solid gray; border-radius: 2px; height: 30px;">
@@ -29,7 +32,7 @@
                 </div>
                 <div style="padding-top: 10px;">
                     <div style="display: inline-block; text-align: left; width: 50%; color: white">Сумма</div>
-                    <div style="display: inline-block; text-align: right; width: 50%;  color: orange">{{item.price * item.quantity}} грн</div>
+                    <div style="display: inline-block; text-align: right; width: 50%;  color: orange">{{(item.discount_price ? item.discount_price : item.price) * item.quantity}} грн</div>
                 </div>
             </div>
             <button class="close-btn">
@@ -50,12 +53,15 @@
         methods: {
             up: function (key) {
                 this.$emit('click:addOne', key);
+                this.$emit('click:updateDeliveryPrice');
             },
             down: function (key) {
                 this.$emit('click:removeOne', key);
+                this.$emit('click:updateDeliveryPrice');
             },
             removeItem: function (key) {
                 this.$emit('click:remove', key);
+                this.$emit('click:updateDeliveryPrice');
             }
         }
     }

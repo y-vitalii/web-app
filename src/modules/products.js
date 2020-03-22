@@ -3,14 +3,7 @@ import shop from '../api/shop';
 const state = {
     items: {},
     categories: [],
-    current: '',
-    deliveryPrice: 50
-};
-
-const getters = {
-    getDeliveryPrice: (state, getters) => {
-        return state.deliveryPrice;
-    }
+    current: ''
 };
 
 const actions = {
@@ -92,7 +85,6 @@ const mutations = {
 export default {
     namespaced: true,
     state,
-    getters,
     actions,
     mutations
 }

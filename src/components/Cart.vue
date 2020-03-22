@@ -2,20 +2,21 @@
     <div id="cart-content">
         <div v-bind:class="['cart-content', isMobile ? mobile : '']">
             <div v-bind:class="['cart-text', isMobile ? mobile : '']">Корзина</div>
-            <ul ref="itemsGroup">
+            <ul>
                 <transition-group appear name="slide-fade">
                     <li v-bind:class="[cartValue, isMobile ? mobile : '']" v-for="(item) in items" :key="item.id">
                         <CartProduct v-if="!isMobile" v-bind:item="item" v-bind:test="item.quantity"
                                      @click:remove="removeByKey"
-                                     @click:addOne="addOne" @click:removeOne="removeOne"/>
+                                     @click:addOne="addOne" @click:removeOne="removeOne"
+                                     @click:updateDeliveryPrice="updateDeliveryPrice"/>
                         <CartProductMobile v-if="isMobile" v-bind:item="item" v-bind:test="item.quantity"
                                            @click:remove="removeByKey"
-                                           @click:addOne="addOne" @click:removeOne="removeOne"/>
+                                           @click:addOne="addOne" @click:removeOne="removeOne"
+                                           @click:updateDeliveryPrice="updateDeliveryPrice"/>
                     </li>
                 </transition-group>
             </ul>
-            <div v-bind:class="[confirmContent, isMobile ? mobile : '']">
-                <!--                <h3 class="inline col2">Total price: {{total}} {{$t('uah')}}</h3>-->
+            <div ref="confirmContent" v-bind:class="[confirmContent, isMobile ? mobile : '']">
                 <div v-bind:class="[confirmText, isMobile ? mobile : '']">
                     <span style="display: block; color: orange; padding-bottom: 3px;     width: 95%;
 ">{{$t('c_text1')}}</span>
@@ -30,30 +31,42 @@
                 </div>
                 <div v-bind:class="[confirmForm, isMobile ? mobile : '']">
                     <div style="text-align: left; padding-bottom: 10px;">
-                        <span style="color:gray; width: 20%;display: inline-block">{{$t('c_text6')}}</span>
-                        <div style="text-align: right; width: 80%; display: inline-block">
-                            <input type="text"
-                                   style="margin-right: 5px;color: gray; border-style: solid; border-width: 1px;border-color: #7d8078;background-color: transparent;padding: 4px;border-radius: 3px;">
-                            <button style="background-color: transparent;border-radius: 3px;color: grey;border: 1px solid grey;padding: 4px 4px;">
-                                OK
-                            </button>
-                        </div>
+                        <span style="color:gray;  display: inline-block; width: 50%;">Товаров на сумму</span>
+                        <span style="color:gray;    display: inline-block;width: 50%; text-align: right;">{{total}} {{$t('uah')}}</span>
                     </div>
                     <div style="text-align: left; padding-bottom: 10px;">
                         <span style="color:gray;  display: inline-block; width: 50%;">{{$t('c_text7')}}</span>
-                        <span style="color:gray;    display: inline-block;width: 50%; text-align: right;">50 {{$t('uah')}}</span>
+                        <span style="color:gray;    display: inline-block;width: 50%; text-align: right;">{{deliveryPrice ? deliveryPrice + ' ' + $t('uah') : 'бесплатно'}}</span>
                     </div>
-                    <div style="text-align: left; padding-bottom: 5px;">
+                    <div style="text-align: left; padding-bottom: 5px; width: 100%">
                         <span style="color:white; font-size: 24px;display: inline-block;width: 50%;">{{$t('c_text8')}}</span>
-                        <span style="color:white; font-size: 24px; display: inline-block;width: 25%; text-align: right;">{{total}} {{$t('uah')}}</span>
-                        <span style="color:white; font-size: 24px; display: inline-block;width: 25%; text-align: right;">{{total + deliveryPrice}} {{$t('uah')}}</span>
+                        <span style="color:white; font-size: 24px; display: inline-block;width: 50%; text-align: right;">
+                        <span v-if="isPromoSuccess"
+                              style="color:gray; font-size: 18px; display: inline-block; text-align: right;">{{total + deliveryPrice}} {{$t('uah')}}</span>
+                            {{total + deliveryPrice - promoPrice}} {{$t('uah')}}
+                        </span>
                     </div>
-                    <!--                    <router-link class="barket" @click.native="applyOrder()" to="/order" tag="div">-->
                     <button @click="applyOrder()"
                             v-bind:class="['inline', 'button-accept' , 'col2', !canOrder() ? 'disabled' : '']">
                         {{$t('c_text9')}}
                     </button>
-                    <!--                    </router-link>-->
+                    <div v-if="!isPromoSuccess">
+                        <button @click="showPromo()"
+                                style="background-color: transparent; color: #c4c4c4; padding-top: 10px; border-bottom: 1px solid #c4c4c4">
+                            Ввести промокод
+                        </button>
+                        <div v-if="isShowPromo" style="padding-top: 10px;">
+                            <input v-model="promocode" type="text"
+                                   v-bind:class="['promo-input', isPromoError ? 'promo-error' : '']"
+                                   @input="promoOnChange" @change="promoOnChange">
+                            <button @click="applyPromo()"
+                                    style="display: block; margin: 0 auto; background-color: #616161; border-radius: 3px; color: #c4c4c4; border: 1px solid #616161; padding: 5px">
+                                Применить
+                            </button>
+                        </div>
+                    </div>
+                    <div v-if="isPromoSuccess" style="color: #44803d; padding-top: 10px;">Промокод успешно применен
+                    </div>
                 </div>
             </div>
         </div>
@@ -67,6 +80,7 @@
     import CartProduct from "./CartProduct";
     import CartProductMobile from "./CartProductMobile";
     import BottomText from "./BottomText";
+    import shop from "../api/shop";
 
     export default {
         name: "Cart",
@@ -83,10 +97,42 @@
                 confirmContent: 'confirm-content',
                 mobile: 'mobile',
                 confirmText: 'confirm-text',
-                confirmForm: 'confirm-form'
+                confirmForm: 'confirm-form',
+                isShowPromo: false,
+                isPromoSuccess: false,
+                isPromoError: false,
+                promocode: null
             }
         },
         methods: {
+            promoOnChange: function () {
+                this.isPromoError = false;
+            },
+            showPromo: function () {
+                this.isShowPromo = true;
+            },
+            applyPromo: async function () {
+                if (this.promocode) {
+                    const response = await shop.applyPromo({
+                            promocode: this.promocode
+                        }),
+                        amt = response.amt;
+
+                    if (amt) {
+                        this.isPromoSuccess = true;
+                        this.setPromoPrice(amt);
+                    } else {
+                        this.isPromoError = true;
+                    }
+                }
+            },
+            updateDeliveryPrice() {
+                this.updateDelivery();
+
+                setTimeout(() => {
+                    if (!this.items.length) this.$router.push('/')
+                }, 1500);
+            },
             applyOrder: function () {
                 if (this.canOrder()) this.$router.push('/order');
             },
@@ -98,24 +144,26 @@
                 removeItem: 'cart/remove',
                 removeByKey: 'cart/removeByKey',
                 addOne: 'cart/addOne',
-                removeOne: 'cart/removeOne'
+                removeOne: 'cart/removeOne',
+                setPromoPrice: 'cart/setPromoPrice',
+                updateDelivery: 'cart/updateDeliveryPrice'
             })
         },
         computed: mapState({
             items: state => state.cart.items,
             ...mapGetters('cart', {
-                total: 'getTotalPrice'
-            }),
-            ...mapGetters('products', {
+                total: 'getTotalPrice',
+                promoPrice: 'getPromoPrice',
                 deliveryPrice: 'getDeliveryPrice'
             })
         }),
         mounted() {
-            this.$refs.itemsGroup.style.minHeight = window.innerHeight - 414 + 'px';
+            this.$refs.confirmContent.style.minHeight = window.innerHeight - 430 + 'px';
         },
         created() {
             window.scrollTo(0, 0);
             if (!this.items.length) this.$router.push('/');
+            this.updateDeliveryPrice();
         }
     }
 </script>
@@ -159,6 +207,25 @@
 
     .col2 {
         width: 50%;
+    }
+
+    .promo-input {
+        font-weight: bold;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        color: #9c9c9c;
+        border-style: solid;
+        border-width: 1px;
+        border-color: #7d8078;
+        background-color: transparent;
+        padding: 5px;
+        border-radius: 3px;
+        text-align: center;
+    }
+
+    .promo-error {
+        border-color: #a70000c4;
+        border-width: 2px;
     }
 
     .button {
