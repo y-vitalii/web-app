@@ -1,17 +1,19 @@
 <template>
     <div id="product-content">
-        <div class="top-text">{{this.item.name}}</div>
-        <div class="img-content swiper-lazy" v-on:click="select()">
-            <img v-bind:src="this.item.photo_filename" style="z-index: 10; width: 100%; padding-bottom: 30px;"
-                 height="220">
+        <div v-if="this.item.discount_price" class="discount">
+            <span class="discount-val">АКЦИЯ</span>
+        </div>
+        <div class="top-text">{{this.item.name}} {{this.item.size ? this.item.size + ' л' : ''}}</div>
+        <div class="swiper-lazy" v-on:click="select()">
+            <img v-bind:src="this.item.photo_filename" class="img-content" height="220">
         </div>
         <transition name="fade">
             <div v-if="selected">
                 <div v-if="!inCart" class="img-cart">
-                    <img v-on:click="addToCart()" src="../assets/korzina_green.png" width="60" height="60">
+                    <img v-on:click="addToCart()" src="../assets/korzina_green.png" width="90" height="auto">
                 </div>
                 <div v-if="inCart" class="img-cart">
-                    <img src="../assets/unnamed.png" width="60" height="60">
+                    <img src="../assets/unnamed.png" width="90" height="auto">
                 </div>
                 <div class="btn-content">
                     <button class="btns" v-on:click="down()" style="width: 40%">-</button>
@@ -21,18 +23,15 @@
             </div>
         </transition>
         <div class="bottom" v-bind:style="{backgroundColor: this.item.color}">
-            <div v-if="this.item.discount_price" class="bottom-full-amount-text">{{this.item.price}} грн
-<!--                <div class="line">__________</div>-->
+            <div v-if="this.item.discount_price" class="bottom-full-amount-text">{{this.item.price}} {{$t('uah')}}</div>
+            <div class="bottom-text">{{this.item.discount_price ? this.item.discount_price : this.item.price}}
+                {{$t('uah')}}
             </div>
-            <div class="bottom-text">{{this.item.discount_price ? this.item.discount_price : this.item.price}} грн</div>
         </div>
     </div>
 </template>
 
 <script>
-    import img from '../assets/products/1.png';
-    import img1 from '../assets/products/2.jpg';
-
     export default {
         name: "Product",
         props: {
@@ -46,17 +45,11 @@
                 inCart: false,
                 count: 1,
                 timeOut: null,
-                imgSrc1: this.imgSrc,
-                img,
-                img1,
                 item: this.itemParam,
                 index: this.indexParam
             }
         },
         methods: {
-            getImg: function (key) {
-                return this[key]
-            },
             select: function () {
                 if (!this.selected) {
                     this.selected = true;
@@ -68,6 +61,7 @@
             unSelect: function () {
                 this.selected = false;
                 this.inCart = false;
+                this.count = 1;
             },
             addToCart: function () {
                 if (!this.inCart) {
@@ -99,31 +93,26 @@
     }
 </script>
 
-// TODO border radius on top bottom ?
-
 <style scoped>
     #product-content {
         position: relative;
         border-radius: 5px;
         width: 100%;
         height: 100%;
-        /*margin-left: 10px;*/
-        /*margin-right: 10px;*/
         background-color: white;
         cursor: pointer;
     }
 
     #product-content:hover {
         transform: translateY(-3px);
-
         -webkit-transition-duration: 1s;
         transition-duration: 1s;
     }
 
     .top-text {
         color: black;
-        font-size: 12px;
-        height: 30px;
+        font-size: 14px;
+        min-height: 30px;
         font-weight: bold;
         padding-bottom: 10px;
         padding-top: 10px;
@@ -131,17 +120,8 @@
         padding-right: 15px;
     }
 
-    .img-content {
-        /*max-width: 100%;*/
-        /*height: 170px;*/
-        /*background-image: url(../assets/products/1.png);*/
-        /*background-position: 50% 0px;*/
-        /*background-size: 100px;*/
-    }
-
     .bottom {
         display: flex;
-        /*margin-top: 10px;*/
         background-color: #1f1c3a;
         height: 30px;
         border-radius: 0 0 4px 4px;
@@ -168,13 +148,7 @@
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-    }
-
-    .bottom-full-amount-text:before {
-        content: '______';
-        position: absolute;
-        top:-50%;
-        width: max-content;
+        text-decoration: line-through;
     }
 
     .btn-content {
@@ -190,15 +164,17 @@
         margin: 0 auto;
     }
 
+    .swiper-lazy {
+        overflow: hidden;
+    }
+
     .btns {
         background-color: transparent;
         font-size: 23px;
         font-weight: lighter;
         color: white;
         border: none;
-        /*!*padding: 7px 15px;*!*/
         cursor: pointer;
-        /*border-radius: 5px;*/
     }
 
     .item-count {
@@ -206,6 +182,13 @@
         justify-content: center;
         align-items: center;
         color: white;
+    }
+
+    .img-content {
+        z-index: 10;
+        padding-bottom: 30px;
+        transform: translateX(-50%);
+        margin: 0 50%;
     }
 
     .img-cart {
@@ -217,6 +200,29 @@
         right: 0;
         top: 0;
         bottom: 0;
+    }
+
+    .discount {
+        position: absolute;
+        display: flex;
+        top: 40px;
+        left: 10px;
+        background-color: #f84147;
+        width: 65px;
+        height: 25px;
+        border-radius: 25px;
+        z-index: 1;
+    }
+
+    .discount-val {
+        display: flex;
+        justify-content: center;
+        font-size: 13px;
+        align-self: center;
+        margin: 0 auto;
+        font-weight: bold;
+        color: white;
+        vertical-align: middle;
     }
 
     .fade-enter-active, .fade-leave-active {

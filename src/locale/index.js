@@ -26,7 +26,7 @@ const i18n = {
                 'большое событие в твоей жизни.\n' +
                 'Просто сделай выбор и наполни себя\n' +
                 'новыми красками!\n',
-            b_text3: 'c Posle22 Technologies, Inc',
+            b_text3: '© Posle22 Technologies, Inc',
             b_text1_1: 'POSLE22',
             b_text1_2: 'Про нас',
             b_text1_3: 'Вопросы и ответы',

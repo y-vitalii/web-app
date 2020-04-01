@@ -42,7 +42,7 @@
                         <span style="color:white; font-size: 24px;display: inline-block;width: 50%;">{{$t('c_text8')}}</span>
                         <span style="color:white; font-size: 24px; display: inline-block;width: 50%; text-align: right;">
                         <span v-if="isPromoSuccess"
-                              style="color:gray; font-size: 18px; display: inline-block; text-align: right;">{{total + deliveryPrice}} {{$t('uah')}}</span>
+                              style="color:gray; text-decoration: line-through; font-size: 18px; display: inline-block; text-align: right;">{{total + deliveryPrice}} {{$t('uah')}}</span>
                             {{total + deliveryPrice - promoPrice}} {{$t('uah')}}
                         </span>
                     </div>
@@ -120,7 +120,7 @@
 
                     if (amt) {
                         this.isPromoSuccess = true;
-                        this.setPromoPrice(amt);
+                        this.setPromo({val: amt, promo: this.promocode});
                     } else {
                         this.isPromoError = true;
                     }
@@ -145,7 +145,7 @@
                 removeByKey: 'cart/removeByKey',
                 addOne: 'cart/addOne',
                 removeOne: 'cart/removeOne',
-                setPromoPrice: 'cart/setPromoPrice',
+                setPromo: 'cart/setPromo',
                 updateDelivery: 'cart/updateDeliveryPrice'
             })
         },

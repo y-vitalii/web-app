@@ -7,7 +7,7 @@
                 <div class="promo-text">{{$t('text2')}}</div>
             </div>
             <div class="promo-time">
-                22:00-6:00
+                22:00-4:00
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
         padding: 6px 20px;
         width: max-content;
         font-family: 'Digital', serif;
-        font-size: 29px;
+        font-size: 39px;
         color: white;
         margin: 50px auto;
         border: 2px solid white;

@@ -14,9 +14,6 @@
             <div class="grid-container grid-container--fit">
                 <div class="grid-element" v-for="item in items" :key="item.id">
                     <Product v-bind:itemParam="item" @click="addProduct"/>
-                    <!--                    <button v-bind:class="[item.isAdded ? disabled : '', button]"-->
-                    <!--                            @click="addProduct(item, index)">Buy-->
-                    <!--                    </button>-->
                 </div>
             </div>
         </div>
@@ -51,23 +48,13 @@
                 if (this.$store.state.products.items[key]) this.items = this.$store.state.products.items[key];
                 else this.items = [];
             },
-            changeTopic: function () {
-
-            },
-            slide: function () {
-
-            },
             addProduct: function (item) {
                 item.isAdded = !item.isAdded;
 
-                // this.items.splice(index, 1, item);
-                // debugger
-                // this.setDrink({index, item});
                 this.addProductToCart(item);
             },
             ...mapActions({
                 addProductToCart: 'cart/addProductToCart',
-                // getDrinks: 'products/getDrinks'
             }),
             ...mapMutations({
                 setDrink: 'products/setDrink',
@@ -87,7 +74,6 @@
                     this.items = this.drinks;
                 } else {
                     this.$store.dispatch('products/getDrinks').then((data) => {
-                        // debugger
                         this.items = data;
                         this.categoryList = this.categories;
                     });
@@ -98,7 +84,6 @@
                     this.items = this.foods;
                 } else {
                     this.$store.dispatch('products/getFoods').then((data) => {
-                        // debugger
                         this.items = data;
                     });
                 }
@@ -151,7 +136,6 @@
 
     .select-block {
         background-color: #323232;
-        /*position: sticky;*/
         top: -50px;
         z-index: 199;
     }
@@ -167,7 +151,6 @@
 
     .swiper-slide {
         text-align: center;
-        /*background-color: rgba(238, 238, 238, 0.3);*/
         border-radius: 5px;
         display: -webkit-box;
         display: -ms-flexbox;
@@ -188,13 +171,8 @@
         bottom: 49px;
         max-width: 100%;
         width: 100px;
-
-        /*border: none;*/
-        /*padding: 7px 37px;*/
         cursor: pointer;
         border-radius: 5px;
-        /*border-bottom: 5px;*/
-        /*margin: 6px 0px;*/
     }
 
     .disabled {
@@ -211,16 +189,6 @@
         grid-template-columns: repeat(auto-fit, minmax(150px, 170px));
     }
 
-    /*@media only screen and (max-width: 600px) {*/
-    /*    .grid-container--fit {*/
-    /*        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));*/
-    /*    }*/
-    /*}*/
-
     .grid-element {
-        /*background-color: deepPink;*/
-        /*padding: 20px;*/
-        /*color: #fff;*/
-        /*border: 1px solid #fff;*/
     }
 </style>

@@ -1,6 +1,7 @@
 const state = {
     items: [],
     promoPrice: 0,
+    promocode: '',
     deliveryPrice: 50
 };
 
@@ -23,11 +24,14 @@ const getters = {
     },
     getTotalPrice: (state, getters) => {
         return state.items.reduce((total, product) => {
-            return total + product.price * product.quantity
+            return total + (product.discount_price ? product.discount_price :  product.price) * product.quantity
         }, 0);
     },
     getPromoPrice: (state) => {
         return state.promoPrice
+    },
+    getPromoCode: (state) => {
+        return state.promocode
     },
     getDeliveryPrice: (state, getters) => {
         return state.deliveryPrice;
@@ -91,6 +95,8 @@ const mutations = {
     },
     removeAll(state) {
         state.items = [];
+        state.promocode = '';
+        state.promoPrice = 0;
     },
     remove(state, index) {
         state.items[index].quantity = 1;
@@ -101,8 +107,9 @@ const mutations = {
     setItems(state, items) {
         if (!state.items.length) state.items.push.apply(state.items, items)
     },
-    setPromoPrice(state, val) {
-        state.promoPrice = val;
+    setPromo(state, obj) {
+        state.promoPrice = obj.val;
+        state.promocode = obj.promo || '';
     },
     updateDeliveryPrice(state) {
         const total = state.items.reduce((total, product) => {

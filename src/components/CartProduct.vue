@@ -6,13 +6,10 @@
         <div class="inline" style="color: white; width: 40%;vertical-align: middle;text-align: left;">
             {{item.name}}
         </div>
-        <div style="vertical-align: middle;">
-            <!--            <span style="    position: absolute; top: 30px;">Цена</span>-->
-            <span v-if="item.discount_price" style="color: #b1b1b1; font-size: 12px; padding-right: 10px;">{{item.discount_price ? item.discount_price : item.price}} грн</span>
-            <span style="color: white;">{{item.price}} грн</span>
+        <div style="vertical-align: middle; position:relative;">
+            <span v-if="item.discount_price" style="color: #b1b1b1; font-size: 12px; position:absolute; padding-right: 10px; left: -100%; bottom: 0; text-decoration: line-through;">{{item.price}} грн</span>
+            <span style="color: white;">{{item.discount_price ? item.discount_price : item.price}} грн</span>
         </div>
-        <!--        <div class="quantity-content">-->
-        <!--            <span style="    position: absolute; top: 30px;">Количество</span>-->
         <button class="btn" @click="down(item.id)">
             <img src="../assets/minus-symbol.png" width="20">
         </button>
@@ -20,9 +17,7 @@
         <button class="btn" @click="up(item.id)">
             <img src="../assets/plus-symbol.png" width="20">
         </button>
-        <!--        </div>-->
         <div style="vertical-align: middle;">
-            <!--            <span style="    position: absolute; top: 30px;">Сумма</span>-->
             <span style="color: orange">{{(item.discount_price ? item.discount_price : item.price) * item.quantity}} грн</span>
         </div>
         <button class="close-btn" @click="removeItem(item.id)">
@@ -70,7 +65,6 @@
     }
 
     .inline {
-        /*display: table-cell;*/
     }
 
     .btn {
@@ -87,19 +81,14 @@
 
     .image {
         height: 150px;
-        /*left: 100px;*/
-        /*position: absolute;*/
-        /*margin-right: 50px;*/
     }
 
     .text-style {
-        /*font-family: "Bitstream Vera Sans";*/
         font-size: 20px;
         color: white;
     }
 
     .confirm-content {
-        /*font-family: "Bitstream Vera Sans";*/
         font-size: 20px;
         color: #ce980a;
         padding-top: 50px;

@@ -44,9 +44,10 @@
                 <span>{{$t('b_text2_3')}}</span>
             </div>
             <div v-bind:class="['bottom-block-info img', isMobile ? 'mobile' : '']">
-                <img class="social-img" src="../assets/facebook.png" width="60">
-                <img class="social-img" src="../assets/vk.png" width="60">
+<!--                <img class="social-img" src="../assets/facebook.png" width="60">-->
+<!--                <img class="social-img" src="../assets/vk.png" width="60">-->
                 <img class="social-img" src="../assets/instagram.png" width="60">
+                <span>@posle22com</span>
             </div>
         </div>
     </div>
@@ -107,7 +108,7 @@
     }
 
     .bottom-block-info img:first-child {
-        margin-right: 25px;
+        /*margin-right: 25px;*/
     }
 
     .bottom-block-info div {
@@ -125,7 +126,7 @@
     }
 
     .bottom-block-info img {
-        margin-right: 40px;
+        /*margin-right: 40px;*/
     }
 
     .layer2 {
@@ -140,7 +141,6 @@
     }
 
     .layer2 div {
-        /*display: flex;*/
         justify-content: center;
         vertical-align: center;
         align-self: center;
@@ -165,6 +165,10 @@
         display: block;
         margin: 0 auto;
         margin-right: 15px;
+    }
+
+    .social-img {
+        padding-bottom: 15px;
     }
 
     @media only screen and (max-width: 635px) {

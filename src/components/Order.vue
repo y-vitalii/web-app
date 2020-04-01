@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <SuccessOrder v-if="orderSend"/>
+        <SuccessOrder v-bind:order="order" v-if="orderSend"/>
         <BottomText/>
     </div>
 </template>
@@ -161,12 +161,18 @@
                 isMobile: utils.isMobile(),
                 topText: 'top-text',
                 topTextMobile: 'mobile',
+                order: {
+                    orderId: ''
+                },
                 orderSend: false
             }
         },
         methods: {
             ...mapMutations({
                 clearCart: 'cart/removeAll'
+            }),
+            ...mapGetters('cart', {
+                getPromoCode: 'getPromoCode'
             }),
             isNumber: function (evt) {
                 evt = (evt) ? evt : window.event;
@@ -207,7 +213,8 @@
                         name: this.formData.name,
                         phone: this.formData.phone,
                         address: this.formData.address,
-                        info: this.formData.comment
+                        info: this.formData.comment,
+                        promocode: this.getPromoCode()
                     },
                     items: {}
                 };
@@ -217,6 +224,7 @@
                 const response = await shop.sendOrder(data);
 
                 if (response.status === 'OK') {
+                    this.order.orderId = response.order_id;
                     this.orderSend = true;
                     this.clearCart();
                     localStorage.removeItem('after_22_cart');
@@ -274,8 +282,6 @@
         color: white;
         font-size: 21px;
         text-align: left;
-        /*padding-top: 25px;*/
-        /*padding-bottom: 25px;*/
         padding: 25px 10px;
     }
 
@@ -415,7 +421,6 @@
     @media only screen and (max-width: 870px) {
         .order-form {
             width: 100%;
-            /*box-sizing: content-box;*/
             padding-right: 0;
             margin-bottom: 25px;
         }

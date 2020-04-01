@@ -12,7 +12,7 @@
                 <div style="padding-bottom: 10px;">
                     <div style="color: #989898; text-align: left; display: inline-block; width: 50%;">Цена</div>
                     <div style="color: #989898; text-align: right; display: inline-block; width: 50%;">
-                        <div v-if="item.discount_price" style="color: gray; font-size: 12px; text-align: right; display: inline-block;">
+                        <div v-if="item.discount_price" style="color: gray; font-size: 12px; text-decoration: line-through; text-align: right; display: inline-block;">
                             {{item.price}} грн
                         </div>
                         {{item.discount_price ? item.discount_price : item.price}} грн
