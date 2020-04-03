@@ -8,7 +8,7 @@
             <router-link v-if="barket !== false" class="barket" to="/cart" tag="div">
                 <img src="../assets/shopping_cart.png" width="30" height="30">
                 <span v-if="totalQuantity" class="barket dot">
-                    <div v-if="totalQuantity" class="barket cart-count">{{totalQuantity}}</div>
+                    <div v-if="totalQuantity" class="cart-count">{{totalQuantity}}</div>
                 </span>
             </router-link>
         </div>
@@ -59,17 +59,10 @@
 
 <style scoped>
     #header-content {
-
-    }
-
-    a {
-        color: #f5f5f5;
-    }
-
-    .header {
         background-color: #1E1E1E;
         text-align: center;
         height: 55px;
+        /*max-width: 900px;*/
         width: 100%;
         position: fixed;
         left: 0;
@@ -81,18 +74,39 @@
         flex-direction: row;
     }
 
+    a {
+        color: #f5f5f5;
+    }
+
+    .header {
+        /*background-color: #1E1E1E;*/
+        /*text-align: center;*/
+        height: 55px;
+        max-width: 900px;
+        width: 100%;
+        margin: 0 auto;
+        /*position: fixed;*/
+        /*left: 0;*/
+        /*top: 0;*/
+        /*z-index: 200;*/
+        /*display: -webkit-flex;*/
+        display: flex;
+        /*-webkit-flex-direction: row;*/
+        /*flex-direction: row;*/
+    }
+
     .header-logo {
         display: flex;
         width: 50%;
         align-items: center;
-        justify-content: center;
+        /*justify-content: center;*/
     }
 
     .barket {
         display: flex;
         width: 50%;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-end;
     }
 
     .dot {
@@ -110,13 +124,10 @@
         top: 1px;
         color: white;
         min-width: max-content;
-        /*width: max-content;*/
         font-weight: bold;
         font-size: 10px;
-        /*position: relative;*/
-        /*top: -4px;*/
-        /*left: -8px;*/
-        /*transform: translate(-50%, -50%);*/
+        width: 100%;
+        justify-content: center;
     }
 
     .header-img {
@@ -137,15 +148,15 @@
         animation-fill-mode: forwards;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 900px) {
         .barket {
             justify-content: flex-end;
-            margin-right: 4px;
+            margin-right: 5px;
         }
 
         .header-logo {
             justify-content: flex-start;
-            margin-left: 2px;
+            margin-left: 5px;
         }
 
         .dot {

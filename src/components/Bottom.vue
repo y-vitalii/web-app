@@ -1,14 +1,16 @@
 <template>
     <div id="bottom-content">
         <div v-if="true" class="layer1">
-            <div class="l1-img">
-                <img src="../assets/kartinki_design.png" width="420">
-            </div>
-            <div class="l1-txt">
-                <div class="l1-txt-content">
-                    <h1 style="color:#D28B06; font-weight: lighter;">{{$t('b_text0')}}</h1>
-                    <h1 style="color:white; font-weight: lighter; padding-bottom: 25px">{{$t('b_text1')}}</h1>
-                    <h5 style="font-size: 16px; color: #5d5d5d">{{$t('b_text2')}}</h5>
+            <div class="layer1-content">
+                <div class="l1-img">
+                    <img src="../assets/kartinki_design.png" width="420">
+                </div>
+                <div class="l1-txt">
+                    <div class="l1-txt-content">
+                        <h1 style="color:#D28B06; font-weight: lighter;">{{$t('b_text0')}}</h1>
+                        <h1 style="color:white; font-weight: lighter; padding-bottom: 25px">{{$t('b_text1')}}</h1>
+                        <h5 style="font-size: 16px; color: #5d5d5d">{{$t('b_text2')}}</h5>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,8 +46,8 @@
                 <span>{{$t('b_text2_3')}}</span>
             </div>
             <div v-bind:class="['bottom-block-info img', isMobile ? 'mobile' : '']">
-<!--                <img class="social-img" src="../assets/facebook.png" width="60">-->
-<!--                <img class="social-img" src="../assets/vk.png" width="60">-->
+                <!--                <img class="social-img" src="../assets/facebook.png" width="60">-->
+                <!--                <img class="social-img" src="../assets/vk.png" width="60">-->
                 <img class="social-img" src="../assets/instagram.png" width="60">
                 <span>@posle22com</span>
             </div>
@@ -81,9 +83,17 @@
         justify-content: right;
     }
 
+    .layer1-content {
+        display: flex;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
     .l1-img {
         width: 50%;
         text-align: right;
+        padding-right: 30px;
+        box-sizing: border-box;
     }
 
     .l1-img img {
@@ -97,7 +107,7 @@
     }
 
     .l1-txt-content {
-        max-width: 55%;
+        /*max-width: 55%;*/
         margin-left: 85px;
     }
 
@@ -171,10 +181,22 @@
         padding-bottom: 15px;
     }
 
+    @media only screen and (max-width: 900px) {
+        .l1-txt-content {
+            max-width: 100%;
+            margin: 5px 5px;
+        }
+
+        .l1-img {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+    }
+
     @media only screen and (max-width: 635px) {
-        .layer1 {
+        .layer1-content {
             display: block;
-            padding-top: 0;
+            /*padding-top: 0;*/
         }
 
         .l1-txt {

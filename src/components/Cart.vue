@@ -1,5 +1,6 @@
 <template>
     <div id="cart-content">
+        <Header v-bind:showBarket='true'/>
         <div v-bind:class="['cart-content', isMobile ? mobile : '']">
             <div v-bind:class="['cart-text', isMobile ? mobile : '']">Корзина</div>
             <ul>
@@ -37,6 +38,10 @@
                     <div style="text-align: left; padding-bottom: 10px;">
                         <span style="color:gray;  display: inline-block; width: 50%;">{{$t('c_text7')}}</span>
                         <span style="color:gray;    display: inline-block;width: 50%; text-align: right;">{{deliveryPrice ? deliveryPrice + ' ' + $t('uah') : 'бесплатно'}}</span>
+                    </div>
+                    <div v-if="isPromoSuccess"  style="text-align: left; padding-bottom: 10px;">
+                        <span style="color:gray;  display: inline-block; width: 50%;">Промокод</span>
+                        <span style="color:gray;    display: inline-block;width: 50%; text-align: right;">{{promoPrice}} {{$t('uah')}}</span>
                     </div>
                     <div style="text-align: left; padding-bottom: 5px; width: 100%">
                         <span style="color:white; font-size: 24px;display: inline-block;width: 50%;">{{$t('c_text8')}}</span>
@@ -81,10 +86,12 @@
     import CartProductMobile from "./CartProductMobile";
     import BottomText from "./BottomText";
     import shop from "../api/shop";
+    import Header from "./Header";
 
     export default {
         name: "Cart",
         components: {
+            Header,
             BottomText,
             CartProductMobile,
             CartProduct
@@ -184,7 +191,7 @@
     .cart-content {
         /*text-align: start;*/
         background-color: #323232;
-        padding-top: 50px;
+        padding-top: 100px;
         padding-bottom: 50px;
         position: relative;
         width: 100%;
@@ -242,7 +249,7 @@
 
     .button-accept {
         width: 100%;
-        background-color: #44803d;
+        background-color: #4ba073;
         font-size: 21px;
         font-weight: lighter;
         color: white;
@@ -388,7 +395,7 @@
     }
 
     .slide-fade-leave-active {
-        transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
 
     .slide-fade-enter, .slide-fade-leave-to
