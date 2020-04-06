@@ -30,9 +30,6 @@ const actions = {
 
         return parsedProducts;
     },
-    getCategories() {
-
-    },
     async getDrinks({commit, state}) {
         let data;
 

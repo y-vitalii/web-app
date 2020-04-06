@@ -6,23 +6,12 @@ const state = {
 };
 
 const getters = {
-    getCartProducts: (state, getters, rootState) => {
-        // return state.items.map(({ id, quantity }) => {
-        //     const product = rootState.products.all.find(product => product.id === id);
-        //
-        //     return {
-        //         title: product.title,
-        //         price: product.price,
-        //         quantity
-        //     }
-        // })
-    },
-    getTotalQuantity: (state, getters) => {
+    getTotalQuantity: (state) => {
         return state.items.reduce((total, product) => {
             return total + product.quantity
         }, 0);
     },
-    getTotalPrice: (state, getters) => {
+    getTotalPrice: (state) => {
         return state.items.reduce((total, product) => {
             return total + (product.discount_price ? product.discount_price :  product.price) * product.quantity
         }, 0);
@@ -33,7 +22,7 @@ const getters = {
     getPromoCode: (state) => {
         return state.promocode
     },
-    getDeliveryPrice: (state, getters) => {
+    getDeliveryPrice: (state) => {
         return state.deliveryPrice;
     }
 };
@@ -41,9 +30,6 @@ const getters = {
 const actions = {
     addProductToCart: function ({commit}, item, quantity) {
         commit('pushProductToCart', item, quantity)
-    },
-    sendCardProducts: function () {
-
     }
 };
 

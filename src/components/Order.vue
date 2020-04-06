@@ -65,11 +65,13 @@
                         <div class="inline" style="color: white; width: 70%">Онлайн оплата с помощью банковской карты
                             Visa/MasterCard
                         </div>
-                        <div class="inline" style="width: 30%;"></div>
+                        <div class="inline" style="width: 30%;">
+                            <img src="../assets/visa_mastercard.png">
+                        </div>
                     </div>
                 </div>
                 <div v-bind:class="['comments', isMobile ? 'mobile' : '']">
-                    <div style="color: white; padding: 0 10px;">Комментарий к заказу</div>
+                    <div style="color: white;">Комментарий к заказу</div>
                     <textarea type="text" v-model="formData.comment"
                               style="width: 100%; height: 90px; margin-top: 5px; border-radius: 3px;resize: none;    padding: 5px;
     box-sizing: border-box;
@@ -252,9 +254,10 @@
 
 <style scoped>
     .order-content {
-        max-width: 1000px;
+        max-width: 900px;
         margin: 0 auto;
         padding-top: 55px;
+        padding-bottom: 55px;
     }
 
     input {
@@ -264,7 +267,7 @@
 
     .btn {
         width: 100%;
-        background-color: #44803d;
+        background-color: #4ba073;
         font-size: 21px;
         font-weight: lighter;
         color: white;
@@ -282,7 +285,7 @@
         color: white;
         font-size: 21px;
         text-align: left;
-        padding: 25px 10px;
+        padding: 25px 0;
     }
 
     .order-form {
@@ -301,7 +304,7 @@
         right: 0;
         width: max-content;
         margin: 0 auto;
-        top: 50%;
+        top: 53%;
         transform: translateY(-50%);
     }
 
@@ -390,7 +393,7 @@
     }
 
     .summary {
-        background-color: grey;
+        background-color: #4a4a4a;
         border-radius: 3px;
         vertical-align: top;
         min-width: 250px;
