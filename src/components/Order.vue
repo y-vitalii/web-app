@@ -215,10 +215,10 @@
                         name: this.formData.name,
                         phone: this.formData.phone,
                         address: this.formData.address,
-                        info: this.formData.comment,
-                        promocode: this.getPromoCode()
+                        info: this.formData.comment
                     },
-                    items: {}
+                    items: {},
+                    promocode: this.getPromoCode()
                 };
 
                 this.items.forEach(obj => data.items[obj.id] = obj.quantity);
