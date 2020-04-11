@@ -2,9 +2,7 @@
     <div id="header-content">
         <div class="header">
             <img class="header-img hidden" ref="headerImg" src="../assets/parachutes.png"/>
-            <router-link to="/" class="header-logo" tag="div">
-                <img src="../assets/top_logo.png" width="125" height="auto">
-            </router-link>
+          
             <router-link v-if="barket !== false" class="barket" to="/cart" tag="div">
                 <img src="../assets/shopping_cart.png" width="30" height="30">
                 <span v-if="totalQuantity" class="barket dot">
